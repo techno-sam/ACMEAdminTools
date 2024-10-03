@@ -20,6 +20,7 @@ package io.github.slimeistdev.acme_admin.registration;
 
 import io.github.slimeistdev.acme_admin.ACMEAdminTools;
 import io.github.slimeistdev.acme_admin.content.items.BanHammerItem;
+import io.github.slimeistdev.acme_admin.content.items.BootOnAStickItem;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
@@ -27,6 +28,7 @@ import net.minecraft.world.item.Item;
 @SuppressWarnings("unused")
 public class ACMEItems {
     public static final BanHammerItem BAN_HAMMER = register("ban_hammer", new BanHammerItem(new Item.Properties().stacksTo(1)));
+    public static final BootOnAStickItem BOOT_ON_A_STICK = register("boot_on_a_stick", new BootOnAStickItem(new Item.Properties().stacksTo(1)));
 
     public static void register() {}
 

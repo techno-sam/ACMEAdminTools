@@ -36,15 +36,18 @@ public class ACMECreativeTab {
         .displayItems(new ACMECreativeTabGenerator())
         .build();
 
-    public static void register() {
+    static { // to prevent duplicate registration
         Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, ACME_TAB_KEY, ACME_TAB);
     }
+
+    public static void register() {}
 
     private static class ACMECreativeTabGenerator implements CreativeModeTab.DisplayItemsGenerator {
 
         @Override
         public void accept(CreativeModeTab.ItemDisplayParameters params, CreativeModeTab.Output output) {
             output.accept(new ItemStack(ACMEItems.BAN_HAMMER));
+            output.accept(new ItemStack(ACMEItems.BOOT_ON_A_STICK));
         }
     }
 }

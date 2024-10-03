@@ -65,6 +65,7 @@ loom {
             vmArg("-Dfabric-api.datagen.output-dir=${project.file("src/generated/resources")}")
             vmArg("-Dfabric-api.datagen.modid=acme_admin")
             vmArg("-Dporting_lib.datagen.existing_resources=${project.file("src/main/resources")}") // if we add porting lib in the future
+            programArgs("--existing", project.file("src/main/resources").absolutePath)
 
             environmentVariable("DATAGEN", "TRUE")
         }

@@ -59,7 +59,7 @@ public class ACMEAdminToolsDataGenerator implements DataGeneratorEntrypoint {
 
 			for (String bypass : bypasses) {
 				getOrCreateTagBuilder(TagKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("bypasses_"+bypass)))
-					.add(ACMEDamageTypes.KISS_OF_DEATH);
+					.addOptional(ACMEDamageTypes.KISS_OF_DEATH);
 			}
 		}
 	}

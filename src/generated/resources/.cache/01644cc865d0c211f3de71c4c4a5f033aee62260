@@ -1,0 +1,6 @@
+// 1.20.1	2024-10-03T13:05:25.071679838	ACME Admin Tools/Tags for minecraft:damage_type
+282f44e4e92388c90560ca2b794220b31a021342 data/minecraft/tags/damage_type/bypasses_resistance.json
+282f44e4e92388c90560ca2b794220b31a021342 data/minecraft/tags/damage_type/bypasses_effects.json
+282f44e4e92388c90560ca2b794220b31a021342 data/minecraft/tags/damage_type/bypasses_armor.json
+282f44e4e92388c90560ca2b794220b31a021342 data/minecraft/tags/damage_type/bypasses_enchantments.json
+282f44e4e92388c90560ca2b794220b31a021342 data/minecraft/tags/damage_type/bypasses_cooldown.json

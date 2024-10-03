@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "acme_admin:kiss_of_death",
+      "required": false
+    }
+  ]
+}

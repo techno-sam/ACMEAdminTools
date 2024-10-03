@@ -29,6 +29,8 @@ import net.minecraft.server.players.UserBanListEntry;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -50,8 +52,36 @@ public class BanUtils {
             message.append(Component.translatable("multiplayer.disconnect.banned.expiration", BAN_DATE_FORMAT.format(expires)));
         }
 
-        player.connection.disconnect(message);
+        disconnect(player, message);
 
         ACMEAdminTools.LOGGER.info("Banned player {} with message:\n{}", profile.getName(), message.getString());
+    }
+
+    public static void kickPlayer(@NotNull ServerPlayer player, @Nullable String reason) {
+        MutableComponent message = reason == null
+            ? Component.translatable("multiplayer.disconnect.kicked")
+            : Component.literal(reason);
+
+        disconnect(player, message);
+
+        ACMEAdminTools.LOGGER.info("Kicked player {} with message:\n{}", player.getGameProfile().getName(), message.getString());
+    }
+
+    private static void disconnect(ServerPlayer player, Component message) {
+        player.connection.disconnect(message);
+
+        if (player.getClass().getName().equals("carpet.patches.EntityPlayerMPFake")) {
+            try {
+                Method killMethod = player.getClass().getDeclaredMethod("kill", Component.class);
+
+                killMethod.invoke(player, message);
+            } catch (NoSuchMethodException e) {
+                ACMEAdminTools.LOGGER.error("Failed to disconnect Carpet fake player: kill method not found", e);
+            } catch (InvocationTargetException e) {
+                ACMEAdminTools.LOGGER.error("Failed to disconnect Carpet fake player: kill method threw an exception", e);
+            } catch (IllegalAccessException e) {
+                ACMEAdminTools.LOGGER.error("Failed to disconnect Carpet fake player: kill method is inaccessible", e);
+            }
+        }
     }
 }
