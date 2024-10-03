@@ -16,18 +16,13 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package io.github.slimeistdev.acme_admin.mixin;
+package io.github.slimeistdev.acme_admin.registration;
 
-import net.minecraft.server.MinecraftServer;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+public class ModSetup {
+    public static void init() {
+        ACMEItems.register();
+        ACMEDamageTypes.register();
 
-@Mixin(MinecraftServer.class)
-public class ExampleMixin {
-	@Inject(at = @At("HEAD"), method = "loadLevel")
-	private void init(CallbackInfo info) {
-		// This code is injected into the start of MinecraftServer.loadLevel()V
-	}
+        ACMECreativeTab.register();
+    }
 }

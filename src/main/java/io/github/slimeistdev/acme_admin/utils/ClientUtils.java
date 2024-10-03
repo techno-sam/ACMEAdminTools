@@ -16,18 +16,17 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package io.github.slimeistdev.acme_admin.mixin;
+package io.github.slimeistdev.acme_admin.utils;
 
-import net.minecraft.server.MinecraftServer;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.Minecraft;
+import net.minecraft.world.entity.player.Player;
+import org.jetbrains.annotations.Nullable;
 
-@Mixin(MinecraftServer.class)
-public class ExampleMixin {
-	@Inject(at = @At("HEAD"), method = "loadLevel")
-	private void init(CallbackInfo info) {
-		// This code is injected into the start of MinecraftServer.loadLevel()V
-	}
+public class ClientUtils {
+    @Environment(EnvType.CLIENT)
+    public static @Nullable Player getLocalPlayer() {
+        return Minecraft.getInstance().player;
+    }
 }

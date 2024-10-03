@@ -99,6 +99,8 @@ dependencies {
 
     modLocalRuntime("dev.emi:emi-fabric:${"emi_version"()}")
 
+    modLocalRuntime("maven.modrinth:carpet:${"carpet_version"()}")
+
     annotationProcessor(implementation("io.github.llamalad7:mixinextras-common:${"mixin_extras_version"()}")!!)
 }
 

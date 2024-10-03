@@ -1,0 +1,13 @@
+{
+  "death.attack.acme_admin.kiss_of_death": "%1$s was reeducated by %2$s",
+  "death.attack.acme_admin.kiss_of_death.item": "%1$s was reeducated by %2$s using %3$s",
+
+  "itemGroup.acme_admin": "ACME Admin Tools",
+
+  "tooltip.acme_admin.not_authorised": "§cYou are not authorised to use this item§r",
+
+  "item.acme_admin.ban_hammer": "Ban Hammer",
+  "item.acme_admin.ban_hammer.tooltip.0": "§l§cA powerful tool used to reeducate the unworthy§r",
+  "item.acme_admin.ban_hammer.tooltip.1": "§o§7Hit a player to kill them instantly and ban them from the server§r",
+  "item.acme_admin.ban_hammer.tooltip.2": "§o§7Sneak + Hit a player to bring them to half a heart and ban them from the server§r"
+}
