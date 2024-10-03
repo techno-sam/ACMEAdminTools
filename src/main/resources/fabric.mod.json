@@ -3,13 +3,13 @@
 	"id": "acme_admin",
 	"version": "${version}",
 	"name": "ACME Admin Tools",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Silly and fun in-game tools to amuse and help moderators",
 	"authors": [
-		"Me!"
+		"SlimeistDev",
+		"Violet"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"sources": "https://github.com/techno-sam/ACMEAdminTools"
 	},
 	"license": "LGPL v3.0",
 	"icon": "assets/acme_admin/icon.png",
@@ -26,12 +26,16 @@
 		"acme_admin.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.16.5",
-		"minecraft": "~1.20.1",
-		"java": ">=17",
-		"fabric-api": "*"
+		"minecraft": "${minecraft_version}",
+		"fabricloader": ">=${fabric_loader_version}",
+		"fabric-api": ">=${fabric_api_version}",
+		"java": ">=17"
 	},
-	"suggests": {
-		"another-mod": "*"
+	"custom": {
+		"modmenu": {
+			"links": {
+				"Modrinth": "https://modrinth.com/mod/acme-admin-tools"
+			}
+		}
 	}
 }
