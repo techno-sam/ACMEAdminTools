@@ -18,6 +18,9 @@
 		"main": [
 			"io.github.slimeistdev.acme_admin.ACMEAdminTools"
 		],
+		"client": [
+			"io.github.slimeistdev.acme_admin.ACMEAdminToolsClient"
+		],
 		"fabric-datagen": [
 			"io.github.slimeistdev.acme_admin.ACMEAdminToolsDataGenerator"
 		]

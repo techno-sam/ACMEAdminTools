@@ -23,5 +23,6 @@
 
   "effect.acme_admin.inhibition": "Inhibition",
   "effect.acme_admin.doom": "Doom",
-  "effect.acme_admin.antidote": "Antidote"
+  "effect.acme_admin.antidote": "Antidote",
+  "effect.acme_admin.marked": "Marked"
 }

@@ -19,11 +19,10 @@
 package io.github.slimeistdev.acme_admin;
 
 import io.github.slimeistdev.acme_admin.events.CommonEvents;
+import io.github.slimeistdev.acme_admin.networking.ACMEServerNetworking;
 import io.github.slimeistdev.acme_admin.registration.ModSetup;
 import net.fabricmc.api.ModInitializer;
-
 import net.minecraft.resources.ResourceLocation;
-import org.intellij.lang.annotations.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,6 +44,7 @@ public class ACMEAdminTools implements ModInitializer {
 
 		ModSetup.init();
 		CommonEvents.register();
+		ACMEServerNetworking.register();
 	}
 
 	public static ResourceLocation asResource(String id) {

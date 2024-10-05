@@ -22,6 +22,7 @@ import io.github.slimeistdev.acme_admin.ACMEAdminTools;
 import io.github.slimeistdev.acme_admin.content.effects.AntidoteEffect;
 import io.github.slimeistdev.acme_admin.content.effects.DoomEffect;
 import io.github.slimeistdev.acme_admin.content.effects.ACMEMobEffect;
+import io.github.slimeistdev.acme_admin.content.effects.MarkedEffect;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -53,6 +54,10 @@ public class ACMEMobEffects {
         ANTIDOTE = register(
             "antidote",
             new AntidoteEffect()
+        ),
+        MARKED = register(
+            "marked",
+            new MarkedEffect()
         )
     ;
 
@@ -70,7 +75,7 @@ public class ACMEMobEffects {
     }
 
     public static boolean isModerationEffect(MobEffect effect) {
-        return effect == INHIBITION || effect == DOOM || effect == ANTIDOTE;
+        return effect == INHIBITION || effect == DOOM || effect == ANTIDOTE || effect == MARKED;
     }
 
     public static boolean inhibited(Player player) {
