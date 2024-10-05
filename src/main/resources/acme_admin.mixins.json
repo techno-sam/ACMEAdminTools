@@ -3,6 +3,7 @@
   "package": "io.github.slimeistdev.acme_admin.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "common.misc.LivingEntityAccessor",
     "common.misc.StoredUserListMixin",
     "common.moderation_effects.LivingEntityMixin",
     "common.moderation_effects.MilkBucketItemMixin",

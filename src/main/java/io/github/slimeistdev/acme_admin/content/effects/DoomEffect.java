@@ -22,14 +22,13 @@ import io.github.slimeistdev.acme_admin.registration.ACMEDamageTypes;
 import io.github.slimeistdev.acme_admin.utils.AuthUtils;
 import io.github.slimeistdev.acme_admin.utils.BanUtils;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 
-public class DoomEffect extends MobEffect {
+public class DoomEffect extends ACMEMobEffect {
     public DoomEffect() {
         super(MobEffectCategory.HARMFUL, 0x005b7c);
     }

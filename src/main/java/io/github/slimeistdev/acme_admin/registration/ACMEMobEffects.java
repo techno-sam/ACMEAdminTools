@@ -19,7 +19,10 @@
 package io.github.slimeistdev.acme_admin.registration;
 
 import io.github.slimeistdev.acme_admin.ACMEAdminTools;
+import io.github.slimeistdev.acme_admin.content.effects.AntidoteEffect;
 import io.github.slimeistdev.acme_admin.content.effects.DoomEffect;
+import io.github.slimeistdev.acme_admin.content.effects.ACMEMobEffect;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.effect.MobEffect;
@@ -36,26 +39,38 @@ import java.util.stream.Collectors;
 
 public class ACMEMobEffects {
 
-    public static final MobEffect INHIBITION = register(
-        "inhibition",
-        new MobEffect(MobEffectCategory.HARMFUL, 0x4c00a6)
-            .addAttributeModifier(Attributes.MOVEMENT_SPEED, "b2674fd2-5ed8-4ae7-80cb-4d5f96729942", -1F, AttributeModifier.Operation.MULTIPLY_TOTAL)
-            .addAttributeModifier(Attributes.ATTACK_SPEED, "95540d68-d71e-4018-8564-3d565f0f74fb", -1F, AttributeModifier.Operation.MULTIPLY_TOTAL)
-    );
-
-    public static final MobEffect DOOM = register(
-        "doom",
-        new DoomEffect()
-    );
+    public static final MobEffect
+        INHIBITION = register(
+            "inhibition",
+            new ACMEMobEffect(MobEffectCategory.HARMFUL, 0x4c00a6)
+                .addAttributeModifier(Attributes.MOVEMENT_SPEED, "b2674fd2-5ed8-4ae7-80cb-4d5f96729942", -1F, AttributeModifier.Operation.MULTIPLY_TOTAL)
+                .addAttributeModifier(Attributes.ATTACK_SPEED, "95540d68-d71e-4018-8564-3d565f0f74fb", -1F, AttributeModifier.Operation.MULTIPLY_TOTAL)
+        ),
+        DOOM = register(
+            "doom",
+            new DoomEffect()
+        ),
+        ANTIDOTE = register(
+            "antidote",
+            new AntidoteEffect()
+        )
+    ;
 
     public static void register() {}
 
     private static MobEffect register(String key, MobEffect effect) {
+        if (!(effect instanceof ACMEMobEffect)) {
+            if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
+                throw new IllegalArgumentException("MobEffect %s must be an instance of ACMEMobEffect".formatted(effect));
+            } else {
+                ACMEAdminTools.LOGGER.warn("MobEffect {} should be an instance of ACMEMobEffect, please report this", effect);
+            }
+        }
         return Registry.register(BuiltInRegistries.MOB_EFFECT, ACMEAdminTools.asResource(key), effect);
     }
 
     public static boolean isModerationEffect(MobEffect effect) {
-        return effect == INHIBITION || effect == DOOM;
+        return effect == INHIBITION || effect == DOOM || effect == ANTIDOTE;
     }
 
     public static boolean inhibited(Player player) {
