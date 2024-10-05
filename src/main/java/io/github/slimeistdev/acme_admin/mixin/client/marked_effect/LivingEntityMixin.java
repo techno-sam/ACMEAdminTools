@@ -16,34 +16,27 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package io.github.slimeistdev.acme_admin.mixin.client.particles;
+package io.github.slimeistdev.acme_admin.mixin.client.marked_effect;
 
-import com.google.common.collect.ImmutableList;
-import io.github.slimeistdev.acme_admin.content.particles.MarkedFootprintParticle;
-import net.minecraft.client.particle.ParticleEngine;
-import net.minecraft.client.particle.ParticleRenderType;
-import org.spongepowered.asm.mixin.Final;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.List;
+import java.util.Collection;
 
-@Mixin(ParticleEngine.class)
-public class ParticleEngineMixin {
-    @Shadow
-    @Final
-    @Mutable
-    private static List<ParticleRenderType> RENDER_ORDER;
+@Mixin(LivingEntity.class)
+public abstract class LivingEntityMixin {
+    @Shadow public abstract Collection<MobEffectInstance> getActiveEffects();
 
-    @Inject(method = "<clinit>", at = @At("TAIL"))
-    private static void addMarkedFootprintParticleRenderType(CallbackInfo ci) {
-        RENDER_ORDER = ImmutableList.<ParticleRenderType>builder()
-            .addAll(RENDER_ORDER)
-            .add(MarkedFootprintParticle.PARTICLE_SHEET_TRANSLUCENT_NO_DEPTH_TEST)
-            .build();
-    }
+    @Inject(method = "isCurrentlyGlowing", at = @At("HEAD"), cancellable = true)
+    @SuppressWarnings("CancellableInjectionUsage") // Used by child class
+    protected void acme_admin$onIsCurrentlyGlowing(CallbackInfoReturnable<Boolean> cir) {}
+
+    @Inject(method = "jumpFromGround", at = @At("TAIL"))
+    protected void acme_admin$onJump(CallbackInfo ci) {}
 }

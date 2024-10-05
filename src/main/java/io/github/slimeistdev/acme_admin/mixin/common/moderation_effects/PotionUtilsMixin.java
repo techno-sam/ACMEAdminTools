@@ -20,7 +20,7 @@ package io.github.slimeistdev.acme_admin.mixin.common.moderation_effects;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import io.github.slimeistdev.acme_admin.content.effects.ModeratorSyncedEffect;
+import io.github.slimeistdev.acme_admin.content.effects.ModeratorOnlyEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import org.spongepowered.asm.mixin.Mixin;
@@ -30,7 +30,7 @@ import org.spongepowered.asm.mixin.injection.At;
 public class PotionUtilsMixin {
     @WrapOperation(method = "getColor(Ljava/util/Collection;)I", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/effect/MobEffectInstance;isVisible()Z"))
     private static boolean hideModeratorOnlyEffects(MobEffectInstance instance, Operation<Boolean> original) {
-        if (instance.getEffect() instanceof ModeratorSyncedEffect) {
+        if (instance.getEffect() instanceof ModeratorOnlyEffect) {
             return false;
         }
         return original.call(instance);

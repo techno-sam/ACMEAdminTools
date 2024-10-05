@@ -18,23 +18,7 @@
 
 package io.github.slimeistdev.acme_admin.content.effects;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.player.AbstractClientPlayer;
-import net.minecraft.world.effect.MobEffectInstance;
-
 /**
  * Marker interface to mark that an effect should be sent to ONLY OP-ed clients
- * <br>
- * Also contains methods to handle receipt clientside
  */
-public interface ModeratorSyncedEffect {
-    @Environment(EnvType.CLIENT)
-    default void onAdded(MobEffectInstance effectInstance, AbstractClientPlayer player) {}
-
-    @Environment(EnvType.CLIENT)
-    default void onRemoved(MobEffectInstance effectInstance, AbstractClientPlayer player) {}
-
-    @Environment(EnvType.CLIENT)
-    default void onTick(MobEffectInstance effectInstance, AbstractClientPlayer player) {}
-}
+public interface ModeratorOnlyEffect { }

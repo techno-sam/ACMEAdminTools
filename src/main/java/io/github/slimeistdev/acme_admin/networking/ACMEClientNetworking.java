@@ -18,39 +18,11 @@
 
 package io.github.slimeistdev.acme_admin.networking;
 
-import io.github.slimeistdev.acme_admin.mixin_ducks.client.AbstractClientPlayer_Duck;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketSender;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientPacketListener;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.effect.MobEffectInstance;
-
-import java.util.Objects;
 
 @Environment(EnvType.CLIENT)
 public class ACMEClientNetworking {
     public static void register() {
-        ClientPlayNetworking.registerGlobalReceiver(ACMENetworkingConstants.MODERATOR_EFFECT_SYNC_S2C, ACMEClientNetworking::handleModeratorEffectSync);
-    }
-
-    private static void handleModeratorEffectSync(Minecraft client, ClientPacketListener handler, FriendlyByteBuf buf, PacketSender responseSender) {
-        boolean add = buf.readBoolean();
-        int playerId = buf.readVarInt();
-        CompoundTag effectTag = buf.readNbt();
-
-        if (client.level == null) return;
-
-        MobEffectInstance effectInstance = MobEffectInstance.load(Objects.requireNonNull(effectTag));
-        if (client.level.getEntity(playerId) instanceof AbstractClientPlayer_Duck player) {
-            if (add) {
-                player.acme_admin$addModeratorSyncedEffect(effectInstance);
-            } else {
-                player.acme_admin$removeModeratorSyncedEffect(effectInstance);
-            }
-        }
     }
 }

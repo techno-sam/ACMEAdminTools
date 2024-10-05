@@ -68,6 +68,7 @@ public class MarkedFootprintParticle extends TextureSheetParticle {
     private final MarkedExistenceTracker existenceTracker;
     private final int fadeTicks;
     private final float angle;
+    private boolean alreadyHalved = false;
 
     protected MarkedFootprintParticle(ClientLevel level, double x, double y, double z, MarkedExistenceTracker existenceTracker, int survivalTicks, float angle) {
         super(level, x, y, z);
@@ -100,9 +101,10 @@ public class MarkedFootprintParticle extends TextureSheetParticle {
 
         this.y -= 0.1f / lifetime;
 
-        if (!existenceTracker.isActive()) {
+        if (!alreadyHalved && !existenceTracker.isActive()) {
             age /= 2;
             lifetime /= 2;
+            alreadyHalved = true;
         }
 
         if (age >= lifetime - fadeTicks) {

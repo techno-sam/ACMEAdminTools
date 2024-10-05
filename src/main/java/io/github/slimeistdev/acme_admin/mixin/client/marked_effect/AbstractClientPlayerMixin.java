@@ -19,14 +19,11 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package io.github.slimeistdev.acme_admin.mixin.client.moderation_effects;
+package io.github.slimeistdev.acme_admin.mixin.client.marked_effect;
 
-import com.google.common.collect.ImmutableSet;
 import io.github.slimeistdev.acme_admin.content.effects.MarkedEffect;
-import io.github.slimeistdev.acme_admin.content.effects.ModeratorSyncedEffect;
 import io.github.slimeistdev.acme_admin.content.particles.MarkedExistenceTracker;
 import io.github.slimeistdev.acme_admin.content.particles.MarkedFootprintParticleOptions;
-import io.github.slimeistdev.acme_admin.mixin.common.misc.MobEffectInstanceAccessor;
 import io.github.slimeistdev.acme_admin.mixin_ducks.client.AbstractClientPlayer_Duck;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.util.Mth;
@@ -41,15 +38,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
-
 @Mixin(AbstractClientPlayer.class)
-public class AbstractClientPlayerMixin extends LivingEntityMixin implements AbstractClientPlayer_Duck {
-    @Unique
-    private final Set<MobEffectInstance> acme_admin$moderatorSyncedEffects = new HashSet<>();
-
+public abstract class AbstractClientPlayerMixin extends LivingEntityMixin implements AbstractClientPlayer_Duck {
     @Unique
     private int acme_admin$markedLevel = -1;
 
@@ -61,60 +51,6 @@ public class AbstractClientPlayerMixin extends LivingEntityMixin implements Abst
 
     @Unique
     private boolean acme_admin$wasOnGround;
-
-    @Override
-    @Final
-    public void acme_admin$addModeratorSyncedEffect(MobEffectInstance effectInstance) {
-        if (effectInstance.getEffect() instanceof ModeratorSyncedEffect mse) {
-            acme_admin$moderatorSyncedEffects.add(effectInstance);
-            mse.onAdded(effectInstance, (AbstractClientPlayer) (Object) this);
-
-            boolean wasMarked = acme_admin$markedLevel >= 0;
-
-            acme_admin$markedLevel = acme_admin$moderatorSyncedEffects.stream()
-                .filter(i -> i.getEffect() instanceof MarkedEffect)
-                .map(MobEffectInstance::getAmplifier)
-                .max(Integer::compare)
-                .orElse(-1);
-
-            if ((acme_admin$markedLevel >= 0) && !wasMarked)
-                acme_admin$markedFootprintTimer = 0;
-        }
-    }
-
-    @Override
-    @Final
-    public void acme_admin$removeModeratorSyncedEffect(MobEffectInstance effectInstance) {
-        if (effectInstance.getEffect() instanceof ModeratorSyncedEffect mse) {
-            acme_admin$moderatorSyncedEffects.removeIf(other -> { // can't do a normal remove b/c the duration might not match
-                if (other == effectInstance) {
-                    return true;
-                } else {
-                    return other.getAmplifier() == effectInstance.getAmplifier()
-                        && other.isAmbient() == effectInstance.isAmbient()
-                        && other.getEffect().equals(effectInstance.getEffect());
-                }
-            });
-            mse.onRemoved(effectInstance, (AbstractClientPlayer) (Object) this);
-
-            acme_admin$markedLevel = acme_admin$moderatorSyncedEffects.stream()
-                .filter(i -> i.getEffect() instanceof MarkedEffect)
-                .map(MobEffectInstance::getAmplifier)
-                .max(Integer::compare)
-                .orElse(-1);
-
-            if (!(acme_admin$markedLevel >= 0) && acme_admin$markedExistenceTracker != null) {
-                acme_admin$markedExistenceTracker.markInactive();
-                acme_admin$markedExistenceTracker = null;
-            }
-        }
-    }
-
-    @Override
-    @Final
-    public Set<MobEffectInstance> acme_admin$getModeratorSyncedEffects() {
-        return ImmutableSet.copyOf(acme_admin$moderatorSyncedEffects);
-    }
 
     @Override
     @Final
@@ -133,40 +69,15 @@ public class AbstractClientPlayerMixin extends LivingEntityMixin implements Abst
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void onTick(CallbackInfo ci) {
-        Iterator<MobEffectInstance> iterator = acme_admin$moderatorSyncedEffects.iterator();
+        acme_admin$markedLevel = getActiveEffects().stream()
+            .filter(i -> i.getEffect() instanceof MarkedEffect)
+            .map(MobEffectInstance::getAmplifier)
+            .max(Integer::compare)
+            .orElse(-1);
 
-        boolean removedAny = false;
-        while (iterator.hasNext()) {
-            MobEffectInstance effectInstance = iterator.next();
-
-            if (effectInstance.getEffect() instanceof ModeratorSyncedEffect mse) {
-                mse.onTick(effectInstance, (AbstractClientPlayer) (Object) this);
-            }
-
-            if (!effectInstance.isInfiniteDuration()) {
-                ((MobEffectInstanceAccessor) effectInstance).invokeTickDownDuration();
-
-                if (effectInstance.getDuration() <= 0) {
-                    if (effectInstance.getEffect() instanceof ModeratorSyncedEffect mse) {
-                        mse.onRemoved(effectInstance, (AbstractClientPlayer) (Object) this);
-                    }
-                    iterator.remove();
-                    removedAny = true;
-                }
-            }
-        }
-
-        if (removedAny) {
-            acme_admin$markedLevel = acme_admin$moderatorSyncedEffects.stream()
-                .filter(i -> i.getEffect() instanceof MarkedEffect)
-                .map(MobEffectInstance::getAmplifier)
-                .max(Integer::compare)
-                .orElse(-1);
-
-            if (!(acme_admin$markedLevel >= 0) && acme_admin$markedExistenceTracker != null) {
-                acme_admin$markedExistenceTracker.markInactive();
-                acme_admin$markedExistenceTracker = null;
-            }
+        if (!(acme_admin$markedLevel >= 0) && acme_admin$markedExistenceTracker != null) {
+            acme_admin$markedExistenceTracker.markInactive();
+            acme_admin$markedExistenceTracker = null;
         }
 
         // footprint gen

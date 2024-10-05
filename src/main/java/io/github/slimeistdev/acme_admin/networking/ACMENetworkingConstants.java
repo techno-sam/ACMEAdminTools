@@ -22,5 +22,4 @@ import io.github.slimeistdev.acme_admin.ACMEAdminTools;
 import net.minecraft.resources.ResourceLocation;
 
 public class ACMENetworkingConstants {
-    public static final ResourceLocation MODERATOR_EFFECT_SYNC_S2C = ACMEAdminTools.asResource("moderator_effect_sync_s2c");
 }

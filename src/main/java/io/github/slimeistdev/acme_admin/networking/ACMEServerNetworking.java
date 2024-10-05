@@ -18,36 +18,8 @@
 
 package io.github.slimeistdev.acme_admin.networking;
 
-import io.github.slimeistdev.acme_admin.ACMEAdminTools;
-import io.github.slimeistdev.acme_admin.content.effects.ModeratorSyncedEffect;
-import io.github.slimeistdev.acme_admin.utils.AuthUtils;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.effect.MobEffectInstance;
-
 public class ACMEServerNetworking {
     public static void register() {
 
-    }
-
-    public static void syncEffect(ServerPlayer player, MobEffectInstance effectInstance, boolean add) {
-        if (!(effectInstance.getEffect() instanceof ModeratorSyncedEffect)) {
-            ACMEAdminTools.LOGGER.warn("Attempted to sync non-ModeratorSyncedEffect {} to client", effectInstance.getEffect());
-            return;
-        }
-
-        FriendlyByteBuf buf = PacketByteBufs.create();
-        buf.writeBoolean(add);
-        buf.writeVarInt(player.getId());
-        buf.writeNbt(effectInstance.save(new CompoundTag()));
-
-        for (ServerPlayer to : player.server.getPlayerList().getPlayers()) {
-            if (!AuthUtils.isAuthorized(to)) continue;
-
-            ServerPlayNetworking.send(to, ACMENetworkingConstants.MODERATOR_EFFECT_SYNC_S2C, buf);
-        }
     }
 }

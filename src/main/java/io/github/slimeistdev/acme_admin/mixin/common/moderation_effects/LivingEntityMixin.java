@@ -20,15 +20,11 @@ package io.github.slimeistdev.acme_admin.mixin.common.moderation_effects;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import io.github.slimeistdev.acme_admin.content.effects.ModeratorSyncedEffect;
-import io.github.slimeistdev.acme_admin.networking.ACMEServerNetworking;
 import io.github.slimeistdev.acme_admin.registration.ACMEDamageTypeTags;
 import io.github.slimeistdev.acme_admin.registration.ACMEMobEffects;
 import io.github.slimeistdev.acme_admin.utils.AuthUtils;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
@@ -77,24 +73,9 @@ public class LivingEntityMixin {
 
     @Inject(method = "canBeAffected", at = @At("HEAD"), cancellable = true)
     private void moderationEffectsArePlayerOnly(MobEffectInstance effectInstance, CallbackInfoReturnable<Boolean> cir) {
-        if (ACMEMobEffects.isModerationEffect(effectInstance.getEffect()) && AuthUtils.isImmuneToModerationEffects(this)) {
+        var level = ((LivingEntity) (Object) this).level();
+        if (level != null && !level.isClientSide && ACMEMobEffects.isModerationEffect(effectInstance.getEffect()) && AuthUtils.isImmuneToModerationEffects(this)) {
             cir.setReturnValue(false);
-        }
-    }
-
-    @Inject(method = "onEffectAdded", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/effect/MobEffect;addAttributeModifiers(Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/entity/ai/attributes/AttributeMap;I)V"))
-    @SuppressWarnings("ConstantValue")
-    private void sendModeratorEffect(MobEffectInstance effectInstance, Entity entity, CallbackInfo ci) {
-        if (effectInstance.getEffect() instanceof ModeratorSyncedEffect && ((Object) this) instanceof ServerPlayer player) {
-            ACMEServerNetworking.syncEffect(player, effectInstance, true);
-        }
-    }
-
-    @Inject(method = "onEffectRemoved", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/effect/MobEffect;removeAttributeModifiers(Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/entity/ai/attributes/AttributeMap;I)V"))
-    @SuppressWarnings("ConstantValue")
-    private void removeModeratorEffect(MobEffectInstance effectInstance, CallbackInfo ci) {
-        if (effectInstance.getEffect() instanceof ModeratorSyncedEffect && ((Object) this) instanceof ServerPlayer player) {
-            ACMEServerNetworking.syncEffect(player, effectInstance, false);
         }
     }
 }
