@@ -16,14 +16,22 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package io.github.slimeistdev.acme_admin.registration;
+package io.github.slimeistdev.acme_admin.mixin.common.misc;
 
-public class ModSetup {
-    public static void init() {
-        ACMEItems.register();
-        ACMEDamageTypes.register();
-        ACMEMobEffects.register();
+import net.minecraft.server.players.StoredUserList;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Coerce;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-        ACMECreativeTab.register();
-    }
+@Mixin(StoredUserList.class)
+public abstract class StoredUserListMixin {
+	@Shadow protected abstract void removeExpired();
+
+	@Inject(method = "contains", at = @At("HEAD"))
+	private void init(@Coerce Object entry, CallbackInfoReturnable<Boolean> cir) {
+		this.removeExpired();
+	}
 }

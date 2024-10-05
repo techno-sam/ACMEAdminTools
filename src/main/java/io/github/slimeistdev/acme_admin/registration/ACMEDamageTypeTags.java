@@ -18,12 +18,15 @@
 
 package io.github.slimeistdev.acme_admin.registration;
 
-public class ModSetup {
-    public static void init() {
-        ACMEItems.register();
-        ACMEDamageTypes.register();
-        ACMEMobEffects.register();
+import io.github.slimeistdev.acme_admin.ACMEAdminTools;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.damagesource.DamageType;
 
-        ACMECreativeTab.register();
+public class ACMEDamageTypeTags {
+    public static final TagKey<DamageType> BYPASSES_TOTEMS = create("bypasses_totems");
+
+    private static TagKey<DamageType> create(String name) {
+        return TagKey.create(Registries.DAMAGE_TYPE, ACMEAdminTools.asResource(name));
     }
 }

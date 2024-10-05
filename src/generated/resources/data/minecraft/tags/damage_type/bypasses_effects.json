@@ -4,6 +4,10 @@
     {
       "id": "acme_admin:kiss_of_death",
       "required": false
+    },
+    {
+      "id": "acme_admin:doom",
+      "required": false
     }
   ]
 }

@@ -22,6 +22,7 @@
 			"io.github.slimeistdev.acme_admin.ACMEAdminToolsDataGenerator"
 		]
 	},
+	"accessWidener": "acme_admin.accesswidener",
 	"mixins": [
 		"acme_admin.mixins.json"
 	],

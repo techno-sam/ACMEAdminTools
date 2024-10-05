@@ -2,6 +2,8 @@
   "death.attack.acme_admin.kiss_of_death": "%1$s was reeducated by %2$s",
   "death.attack.acme_admin.kiss_of_death.item": "%1$s was reeducated by %2$s using %3$s",
 
+  "death.attack.acme_admin.doom": "%1$s was doomed by their sins",
+
   "itemGroup.acme_admin": "ACME Admin Tools",
 
   "tooltip.acme_admin.not_authorised": "§cYou are not authorised to use this item§r",
@@ -17,5 +19,8 @@
   "item.acme_admin.boot_on_a_stick.tooltip.kick.2": "§7Sneak + Hit a player to bring them to half a heart and kick them from the server§r",
   "item.acme_admin.boot_on_a_stick.tooltip.ban.0": "§c§oA powerful tool used to reeducate the unworthy§r",
   "item.acme_admin.boot_on_a_stick.tooltip.ban.1": "§7Hit a player to kill them instantly and ban them from the server for %s minutes§r",
-  "item.acme_admin.boot_on_a_stick.tooltip.ban.2": "§7Sneak + Hit a player to bring them to half a heart and ban them from the server for %s minutes§r"
+  "item.acme_admin.boot_on_a_stick.tooltip.ban.2": "§7Sneak + Hit a player to bring them to half a heart and ban them from the server for %s minutes§r",
+
+  "effect.acme_admin.inhibition": "Inhibition",
+  "effect.acme_admin.doom": "Doom"
 }

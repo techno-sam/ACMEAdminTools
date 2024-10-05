@@ -1,6 +1,7 @@
 import net.fabricmc.loom.api.LoomGradleExtensionAPI
 import java.io.ByteArrayOutputStream
 import dev.ithundxr.silk.ChangelogText
+import net.fabricmc.loom.decompilers.vineflower.VineflowerDecompiler
 
 plugins {
     java
@@ -15,6 +16,7 @@ println("ACME Admimn Tools v${"mod_version"()}")
 val isRelease = System.getenv("RELEASE_BUILD")?.toBoolean() ?: false
 val buildNumber = System.getenv("GITHUB_RUN_NUMBER")?.toInt()
 val gitHash = "\"${calculateGitHash() + (if (hasUnstaged()) "-modified" else "")}\""
+val accessWidenerFile = file("src/main/resources/acme_admin.accesswidener")
 
 base.archivesName.set("archives_base_name"())
 group = "maven_group"()
@@ -56,6 +58,8 @@ loom.apply {
 }
 
 loom {
+    accessWidenerPath = accessWidenerFile
+
     runs {
         create("datagen") {
             client()

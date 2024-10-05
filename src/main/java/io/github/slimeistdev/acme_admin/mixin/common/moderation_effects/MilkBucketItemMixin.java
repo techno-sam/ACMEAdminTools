@@ -16,22 +16,20 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package io.github.slimeistdev.acme_admin.mixin;
+package io.github.slimeistdev.acme_admin.mixin.common.moderation_effects;
 
-import net.minecraft.server.players.StoredUserList;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import io.github.slimeistdev.acme_admin.registration.ACMEMobEffects;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.MilkBucketItem;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Coerce;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(StoredUserList.class)
-public abstract class StoredUserListMixin {
-	@Shadow protected abstract void removeExpired();
-
-	@Inject(method = "contains", at = @At("HEAD"))
-	private void init(@Coerce Object entry, CallbackInfoReturnable<Boolean> cir) {
-		this.removeExpired();
-	}
+@Mixin(MilkBucketItem.class)
+public class MilkBucketItemMixin {
+    @WrapOperation(method = "finishUsingItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;removeAllEffects()Z"))
+    private boolean keepModerationEffects(LivingEntity instance, Operation<Boolean> original) {
+        return ACMEMobEffects.safeRemoveAllEffects(instance, original::call);
+    }
 }

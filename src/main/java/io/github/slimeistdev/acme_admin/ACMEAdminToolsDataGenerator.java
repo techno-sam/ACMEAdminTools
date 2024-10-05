@@ -18,6 +18,7 @@
 
 package io.github.slimeistdev.acme_admin;
 
+import io.github.slimeistdev.acme_admin.registration.ACMEDamageTypeTags;
 import io.github.slimeistdev.acme_admin.registration.ACMEDamageTypes;
 import io.github.slimeistdev.acme_admin.registration.ModSetup;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
@@ -59,8 +60,13 @@ public class ACMEAdminToolsDataGenerator implements DataGeneratorEntrypoint {
 
 			for (String bypass : bypasses) {
 				getOrCreateTagBuilder(TagKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("bypasses_"+bypass)))
-					.addOptional(ACMEDamageTypes.KISS_OF_DEATH);
+					.addOptional(ACMEDamageTypes.KISS_OF_DEATH.key())
+					.addOptional(ACMEDamageTypes.DOOM.key());
 			}
+
+			getOrCreateTagBuilder(ACMEDamageTypeTags.BYPASSES_TOTEMS)
+				.addOptional(ACMEDamageTypes.KISS_OF_DEATH.key())
+				.addOptional(ACMEDamageTypes.DOOM.key());
 		}
 	}
 }

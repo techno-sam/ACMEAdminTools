@@ -42,6 +42,9 @@ public abstract class AbstractBanHammerItem extends Item {
     @Override
     public final boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if (attacker instanceof Player player && AuthUtils.isAuthorized(player) && target instanceof ServerPlayer serverTarget) {
+            if (AuthUtils.isImmuneToModerationEffects(serverTarget))
+                return false;
+
             Level level = target.level();
 
             // Summon visual lightning
@@ -56,9 +59,9 @@ public abstract class AbstractBanHammerItem extends Item {
             if (player.isShiftKeyDown()) {
                 float amount = target.getHealth() - 1f;
                 if (amount > 0.2f)
-                    target.hurt(ACMEDamageTypes.of(level, ACMEDamageTypes.KISS_OF_DEATH, player), amount);
+                    target.hurt(ACMEDamageTypes.KISS_OF_DEATH.create(level, player), amount);
             } else {
-                target.hurt(ACMEDamageTypes.of(level, ACMEDamageTypes.KISS_OF_DEATH, player), Float.MAX_VALUE);
+                target.hurt(ACMEDamageTypes.KISS_OF_DEATH.create(level, player), Float.MAX_VALUE);
             }
 
             applyModerationAction(stack, serverTarget, player);

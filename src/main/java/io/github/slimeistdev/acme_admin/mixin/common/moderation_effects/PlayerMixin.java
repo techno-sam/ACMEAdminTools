@@ -16,14 +16,22 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package io.github.slimeistdev.acme_admin.registration;
+package io.github.slimeistdev.acme_admin.mixin.common.moderation_effects;
 
-public class ModSetup {
-    public static void init() {
-        ACMEItems.register();
-        ACMEDamageTypes.register();
-        ACMEMobEffects.register();
+import net.minecraft.world.entity.player.Player;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-        ACMECreativeTab.register();
+import static io.github.slimeistdev.acme_admin.registration.ACMEMobEffects.inhibited;
+
+@Mixin(Player.class)
+public class PlayerMixin {
+    @Inject(method = "getDestroySpeed", at = @At("HEAD"), cancellable = true)
+    private void inhibitDestroySpeed(CallbackInfoReturnable<Float> cir) {
+        if (inhibited((Player) (Object) this)) {
+            cir.setReturnValue(0F);
+        }
     }
 }

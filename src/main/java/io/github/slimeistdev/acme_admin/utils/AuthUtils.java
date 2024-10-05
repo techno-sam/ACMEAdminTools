@@ -18,8 +18,11 @@
 
 package io.github.slimeistdev.acme_admin.utils;
 
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
@@ -42,5 +45,15 @@ public class AuthUtils {
                 }
             }
         }
+    }
+
+    public static boolean isImmuneToModerationEffects(Object entity) {
+        if (!(entity instanceof Player player)) {
+            return true;
+        }
+        if (FabricLoader.getInstance().isDevelopmentEnvironment() && player.getItemBySlot(EquipmentSlot.HEAD).is(Items.IRON_BARS)) {
+            return false;
+        }
+        return player.hasPermissions(1);
     }
 }

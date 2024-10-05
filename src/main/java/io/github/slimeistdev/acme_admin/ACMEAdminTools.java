@@ -18,6 +18,7 @@
 
 package io.github.slimeistdev.acme_admin;
 
+import io.github.slimeistdev.acme_admin.events.CommonEvents;
 import io.github.slimeistdev.acme_admin.registration.ModSetup;
 import net.fabricmc.api.ModInitializer;
 
@@ -43,6 +44,7 @@ public class ACMEAdminTools implements ModInitializer {
 		LOGGER.info("ACME Admin Tools is loading!");
 
 		ModSetup.init();
+		CommonEvents.register();
 	}
 
 	public static ResourceLocation asResource(String id) {

@@ -27,21 +27,24 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 
 public class ACMEDamageTypes {
-    public static final ResourceKey<DamageType>
-        KISS_OF_DEATH = acme("kiss_of_death")
+    public static final ACMEDamageType
+        KISS_OF_DEATH = acme("kiss_of_death"),
+        DOOM = acme("doom")
     ;
 
     public static void register() {}
 
-    private static ResourceKey<DamageType> acme(String name) {
-        return ResourceKey.create(Registries.DAMAGE_TYPE, ACMEAdminTools.asResource(name));
+    private static ACMEDamageType acme(String name) {
+        return new ACMEDamageType(ResourceKey.create(Registries.DAMAGE_TYPE, ACMEAdminTools.asResource(name)));
     }
+    
+    public record ACMEDamageType(ResourceKey<DamageType> key) {
+        public DamageSource create(Level world) {
+            return new DamageSource(world.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(key));
+        }
 
-    public static DamageSource of(Level world, ResourceKey<DamageType> key) {
-        return new DamageSource(world.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(key));
-    }
-
-    public static DamageSource of(Level world, ResourceKey<DamageType> key, Entity cause) {
-        return new DamageSource(world.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(key), cause);
+        public DamageSource create(Level world, Entity cause) {
+            return new DamageSource(world.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(key), cause);
+        }
     }
 }

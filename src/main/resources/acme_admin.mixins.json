@@ -1,11 +1,14 @@
 {
-	"required": true,
-	"package": "io.github.slimeistdev.acme_admin.mixin",
-	"compatibilityLevel": "JAVA_17",
-	"mixins": [
-      "StoredUserListMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
+  "required": true,
+  "package": "io.github.slimeistdev.acme_admin.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "common.misc.StoredUserListMixin",
+    "common.moderation_effects.LivingEntityMixin",
+    "common.moderation_effects.MilkBucketItemMixin",
+    "common.moderation_effects.PlayerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
 	}
 }
