@@ -18,7 +18,9 @@
 
 package io.github.slimeistdev.acme_admin.mixin_ducks.client;
 
+import io.github.slimeistdev.acme_admin.content.particles.MarkedExistenceTracker;
 import net.minecraft.world.effect.MobEffectInstance;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Set;
 
@@ -26,4 +28,7 @@ public interface AbstractClientPlayer_Duck {
     void acme_admin$addModeratorSyncedEffect(MobEffectInstance effectInstance);
     void acme_admin$removeModeratorSyncedEffect(MobEffectInstance effectInstance);
     Set<MobEffectInstance> acme_admin$getModeratorSyncedEffects();
+
+    @Nullable
+    MarkedExistenceTracker acme_admin$getMarkedExistenceTracker();
 }

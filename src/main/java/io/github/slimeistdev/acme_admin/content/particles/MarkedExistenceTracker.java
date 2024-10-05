@@ -16,24 +16,36 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package io.github.slimeistdev.acme_admin.mixin.client.moderator_synced_effects;
+package io.github.slimeistdev.acme_admin.content.particles;
 
 import net.minecraft.world.entity.LivingEntity;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(LivingEntity.class)
-public class LivingEntityMixin {
-    @Inject(method = "isCurrentlyGlowing", at = @At("HEAD"), cancellable = true)
-    private void exposeOverrideCurrentlyGlowing(CallbackInfoReturnable<Boolean> cir) {
-        this.acme_admin$overrideCurrentlyGlowing(cir);
+import java.lang.ref.WeakReference;
+
+public class MarkedExistenceTracker {
+    private final WeakReference<LivingEntity> trackingEntity;
+    private boolean active = true;
+
+    public MarkedExistenceTracker(LivingEntity trackingEntity) {
+        this.trackingEntity = new WeakReference<>(trackingEntity);
     }
 
-    @Unique
-    @Final
-    protected void acme_admin$overrideCurrentlyGlowing(CallbackInfoReturnable<Boolean> cir) {}
+    public boolean isActive() {
+        if (!this.active) {
+            return false;
+        }
+
+        LivingEntity entity = this.trackingEntity.get();
+        if (entity == null || entity.isRemoved()) {
+            markInactive();
+            return false;
+        }
+
+        return true;
+    }
+
+    public void markInactive() {
+        this.active = false;
+        this.trackingEntity.enqueue();
+    }
 }

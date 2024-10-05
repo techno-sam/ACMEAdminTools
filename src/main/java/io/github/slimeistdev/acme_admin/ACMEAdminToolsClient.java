@@ -19,6 +19,7 @@
 package io.github.slimeistdev.acme_admin;
 
 import io.github.slimeistdev.acme_admin.networking.ACMEClientNetworking;
+import io.github.slimeistdev.acme_admin.registration.ACMEParticleTypes;
 import net.fabricmc.api.ClientModInitializer;
 
 public class ACMEAdminToolsClient implements ClientModInitializer {
@@ -27,5 +28,6 @@ public class ACMEAdminToolsClient implements ClientModInitializer {
         ACMEAdminTools.LOGGER.info("ACME Admin Tools is loading on the client!");
 
         ACMEClientNetworking.register();
+        ACMEParticleTypes.registerClient();
     }
 }

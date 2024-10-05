@@ -9,14 +9,14 @@
     "common.moderation_effects.LivingEntityMixin",
     "common.moderation_effects.MilkBucketItemMixin",
     "common.moderation_effects.PlayerMixin",
-    "common.moderation_effects.PotionUtilsMixin",
-    "common.moderator_synced_effects.LivingEntityMixin"
+    "common.moderation_effects.PotionUtilsMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "client": [
-    "client.moderator_synced_effects.AbstractClientPlayerMixin",
-    "client.moderator_synced_effects.LivingEntityMixin"
+    "client.moderation_effects.AbstractClientPlayerMixin",
+    "client.moderation_effects.LivingEntityMixin",
+    "client.particles.ParticleEngineMixin"
   ]
 }

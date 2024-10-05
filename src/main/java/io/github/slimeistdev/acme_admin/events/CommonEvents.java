@@ -18,8 +18,13 @@
 
 package io.github.slimeistdev.acme_admin.events;
 
+import io.github.slimeistdev.acme_admin.content.effects.ModeratorSyncedEffect;
+import io.github.slimeistdev.acme_admin.networking.ACMEServerNetworking;
 import net.fabricmc.fabric.api.event.player.*;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.effect.MobEffectInstance;
 
 import static io.github.slimeistdev.acme_admin.registration.ACMEMobEffects.inhibited;
 
@@ -30,5 +35,16 @@ public class CommonEvents {
         UseEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> inhibited(player) ? InteractionResult.FAIL : InteractionResult.PASS);
         AttackBlockCallback.EVENT.register((player, world, hand, pos, direction) -> inhibited(player) ? InteractionResult.FAIL : InteractionResult.PASS);
         AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> inhibited(player) ? InteractionResult.FAIL : InteractionResult.PASS);
+
+        ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
+            ServerPlayer player = handler.getPlayer();
+            server.execute(() -> {
+                for (MobEffectInstance effect : player.getActiveEffects()) {
+                    if (effect.getEffect() instanceof ModeratorSyncedEffect) {
+                        ACMEServerNetworking.syncEffect(player, effect, true);
+                    }
+                }
+            });
+        });
     }
 }

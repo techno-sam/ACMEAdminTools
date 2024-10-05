@@ -23,6 +23,7 @@ public class ModSetup {
         ACMEItems.register();
         ACMEDamageTypes.register();
         ACMEMobEffects.register();
+        ACMEParticleTypes.register();
 
         ACMECreativeTab.register();
     }
