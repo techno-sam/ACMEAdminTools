@@ -21,6 +21,7 @@ package io.github.slimeistdev.acme_admin;
 import io.github.slimeistdev.acme_admin.registration.ACMEDamageTypeTags;
 import io.github.slimeistdev.acme_admin.registration.ACMEDamageTypes;
 import io.github.slimeistdev.acme_admin.registration.ACMEItemTags;
+import io.github.slimeistdev.acme_admin.registration.ACMEItems;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -80,7 +81,8 @@ public class ACMEAdminToolsDataGenerator implements DataGeneratorEntrypoint {
 		protected void addTags(HolderLookup.Provider arg) {
 			getOrCreateTagBuilder(ACMEItemTags.POTION_VESSELS)
 				.addOptionalTag(ConventionalItemTags.POTIONS)
-				.add(Items.TIPPED_ARROW);
+				.add(Items.TIPPED_ARROW)
+				.add(ACMEItems.ALCHEMICAL_LASER);
 		}
 	}
 }

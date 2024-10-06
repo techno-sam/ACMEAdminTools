@@ -16,26 +16,12 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package io.github.slimeistdev.acme_admin.utils;
+package io.github.slimeistdev.acme_admin.mixin_ducks.client;
 
-import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.entity.Entity;
+import org.jetbrains.annotations.Nullable;
 
-public class Utils {
-    public static boolean isDevEnv() {
-        return FabricLoader.getInstance().isDevelopmentEnvironment();
-    }
-
-    public static final DyeColor[] RAINBOW_DYES = new DyeColor[] {
-        DyeColor.RED,
-        DyeColor.ORANGE,
-        DyeColor.YELLOW,
-        DyeColor.LIME,
-        DyeColor.GREEN,
-        DyeColor.LIGHT_BLUE,
-        DyeColor.BLUE,
-        DyeColor.PURPLE,
-        DyeColor.MAGENTA,
-        DyeColor.PINK
-    };
+public interface LocalPlayer_Duck {
+    @Nullable
+    Entity acme_admin$getLaserTargetedEntity();
 }

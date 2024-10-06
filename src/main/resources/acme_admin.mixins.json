@@ -18,6 +18,12 @@
     "defaultRequire": 1
   },
   "client": [
+    "client.alchemical_laser.LevelRendererMixin",
+    "client.alchemical_laser.LocalPlayerMixin",
+    "client.alchemical_laser.MinecraftMixin",
+    "client.doom_effect_icon.EffectRenderingInventoryScreenMixin",
+    "client.doom_effect_icon.GuiMixin",
+    "client.doom_effect_icon.TextureAtlasHolderAccessor",
     "client.marked_effect.AbstractClientPlayerMixin",
     "client.marked_effect.LivingEntityMixin",
     "client.marked_effect.ParticleEngineMixin"

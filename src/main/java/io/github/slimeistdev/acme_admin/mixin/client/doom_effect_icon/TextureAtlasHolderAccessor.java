@@ -16,26 +16,16 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package io.github.slimeistdev.acme_admin.utils;
+package io.github.slimeistdev.acme_admin.mixin.client.doom_effect_icon;
 
-import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.world.item.DyeColor;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.TextureAtlasHolder;
+import net.minecraft.resources.ResourceLocation;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.gen.Invoker;
 
-public class Utils {
-    public static boolean isDevEnv() {
-        return FabricLoader.getInstance().isDevelopmentEnvironment();
-    }
-
-    public static final DyeColor[] RAINBOW_DYES = new DyeColor[] {
-        DyeColor.RED,
-        DyeColor.ORANGE,
-        DyeColor.YELLOW,
-        DyeColor.LIME,
-        DyeColor.GREEN,
-        DyeColor.LIGHT_BLUE,
-        DyeColor.BLUE,
-        DyeColor.PURPLE,
-        DyeColor.MAGENTA,
-        DyeColor.PINK
-    };
+@Mixin(TextureAtlasHolder.class)
+public interface TextureAtlasHolderAccessor {
+    @Invoker
+    TextureAtlasSprite callGetSprite(ResourceLocation location);
 }

@@ -24,9 +24,15 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.alchemy.PotionUtils;
+
+import java.util.List;
 
 public class ACMECreativeTab {
     public static final ResourceKey<CreativeModeTab> ACME_TAB_KEY = ResourceKey.create(Registries.CREATIVE_MODE_TAB, ACMEAdminTools.asResource("acme_tab"));
@@ -46,8 +52,24 @@ public class ACMECreativeTab {
 
         @Override
         public void accept(CreativeModeTab.ItemDisplayParameters params, CreativeModeTab.Output output) {
-            output.accept(new ItemStack(ACMEItems.BAN_HAMMER));
-            output.accept(new ItemStack(ACMEItems.BOOT_ON_A_STICK));
+            output.accept(ACMEItems.BAN_HAMMER.getDefaultInstance());
+            output.accept(ACMEItems.BOOT_ON_A_STICK.getDefaultInstance());
+            output.accept(ACMEItems.ALCHEMICAL_LASER.getDefaultInstance());
+
+            output.accept(laser(ACMEMobEffects.ANTIDOTE, 1, 0, "antidote"));
+            output.accept(laser(ACMEMobEffects.MARKED, -1, 0, "marked"));
+            output.accept(laser(ACMEMobEffects.INHIBITION, -1, 0, "inhibition"));
+            output.accept(laser(ACMEMobEffects.DOOM, 60, 0, "doom"));
+            output.accept(laser(ACMEMobEffects.DOOM, 60, 1, "doom_ii"));
+        }
+
+        private static ItemStack laser(MobEffect effect, int seconds, int amplifier, String presetName) {
+            ItemStack stack = ACMEItems.ALCHEMICAL_LASER.getDefaultInstance();
+            PotionUtils.setCustomEffects(stack, List.of(new MobEffectInstance(effect, seconds == -1 ? -1 : seconds * 20, amplifier, false, true)));
+            stack.setHoverName(Component.translatable("item.acme_admin.alchemical_laser.preset."+presetName)
+                .withStyle(Style.EMPTY.withItalic(false))
+            );
+            return stack;
         }
     }
 }

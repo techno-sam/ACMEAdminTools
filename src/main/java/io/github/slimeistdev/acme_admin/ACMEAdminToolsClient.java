@@ -19,8 +19,11 @@
 package io.github.slimeistdev.acme_admin;
 
 import io.github.slimeistdev.acme_admin.networking.ACMEClientNetworking;
+import io.github.slimeistdev.acme_admin.registration.ACMEItems;
 import io.github.slimeistdev.acme_admin.registration.ACMEParticleTypes;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
+import net.minecraft.world.item.alchemy.PotionUtils;
 
 public class ACMEAdminToolsClient implements ClientModInitializer {
     @Override
@@ -29,5 +32,7 @@ public class ACMEAdminToolsClient implements ClientModInitializer {
 
         ACMEClientNetworking.register();
         ACMEParticleTypes.registerClient();
+
+        ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex > 0 ? -1 : PotionUtils.getColor(stack), ACMEItems.ALCHEMICAL_LASER);
     }
 }

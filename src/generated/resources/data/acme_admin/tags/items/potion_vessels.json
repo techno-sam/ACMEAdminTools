@@ -5,6 +5,7 @@
       "id": "#c:potions",
       "required": false
     },
-    "minecraft:tipped_arrow"
+    "minecraft:tipped_arrow",
+    "acme_admin:alchemical_laser"
   ]
 }

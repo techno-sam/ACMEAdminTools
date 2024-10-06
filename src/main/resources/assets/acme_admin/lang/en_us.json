@@ -22,6 +22,17 @@
   "item.acme_admin.boot_on_a_stick.tooltip.ban.1": "§7Hit a player to kill them instantly and ban them from the server for %s§r",
   "item.acme_admin.boot_on_a_stick.tooltip.ban.2": "§7Sneak + Hit a player to bring them to half a heart and ban them from the server for %s§r",
 
+  "item.acme_admin.alchemical_laser": "Alchemical Laser",
+  "item.acme_admin.alchemical_laser.tooltip.0": "§c§oBringing Tipped Arrows to the 21st century!§r",
+  "item.acme_admin.alchemical_laser.tooltip.1": "§7Use the §o/acme potion§r§7 command to assign effects§r",
+  "item.acme_admin.alchemical_laser.tooltip.2": "§7Use with an entity selected to apply the below effects§r",
+
+  "item.acme_admin.alchemical_laser.preset.antidote": "Alchemical Laser of Antidote",
+  "item.acme_admin.alchemical_laser.preset.marked": "Alchemical Laser of Marking",
+  "item.acme_admin.alchemical_laser.preset.inhibition": "Alchemical Laser of Inhibition",
+  "item.acme_admin.alchemical_laser.preset.doom": "Alchemical Laser of Doom",
+  "item.acme_admin.alchemical_laser.preset.doom_ii": "Alchemical Laser of Eternal Doom",
+
   "tooltip.acme_admin.duration.minutes": "%s minutes",
   "tooltip.acme_admin.duration.minutes.1": "1 minute",
   "tooltip.acme_admin.duration.hours": "%s hours",
