@@ -29,8 +29,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 
 public class DoomEffect extends ACMEMobEffect {
-    public DoomEffect() {
-        super(MobEffectCategory.HARMFUL, 0x005b7c);
+    public DoomEffect(MobEffectCategory category, int color) {
+        super(category, color);
     }
 
     @Override

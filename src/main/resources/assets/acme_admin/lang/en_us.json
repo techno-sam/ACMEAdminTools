@@ -3,6 +3,7 @@
   "death.attack.acme_admin.kiss_of_death.item": "%1$s was reeducated by %2$s using %3$s",
 
   "death.attack.acme_admin.doom": "%1$s was doomed by their sins",
+  "death.attack.acme_admin.doom.player": "%1$s was doomed by their sins",
 
   "itemGroup.acme_admin": "ACME Admin Tools",
 
@@ -18,11 +19,43 @@
   "item.acme_admin.boot_on_a_stick.tooltip.kick.1": "§7Hit a player to kill them instantly and kick them from the server§r",
   "item.acme_admin.boot_on_a_stick.tooltip.kick.2": "§7Sneak + Hit a player to bring them to half a heart and kick them from the server§r",
   "item.acme_admin.boot_on_a_stick.tooltip.ban.0": "§c§oA powerful tool used to reeducate the unworthy§r",
-  "item.acme_admin.boot_on_a_stick.tooltip.ban.1": "§7Hit a player to kill them instantly and ban them from the server for %s minutes§r",
-  "item.acme_admin.boot_on_a_stick.tooltip.ban.2": "§7Sneak + Hit a player to bring them to half a heart and ban them from the server for %s minutes§r",
+  "item.acme_admin.boot_on_a_stick.tooltip.ban.1": "§7Hit a player to kill them instantly and ban them from the server for %s§r",
+  "item.acme_admin.boot_on_a_stick.tooltip.ban.2": "§7Sneak + Hit a player to bring them to half a heart and ban them from the server for %s§r",
+
+  "tooltip.acme_admin.duration.minutes": "%s minutes",
+  "tooltip.acme_admin.duration.minutes.1": "1 minute",
+  "tooltip.acme_admin.duration.hours": "%s hours",
+  "tooltip.acme_admin.duration.hours.1": "1 hour",
+  "tooltip.acme_admin.duration.days": "%s days",
+  "tooltip.acme_admin.duration.days.1": "1 day",
+
+  "tooltip.acme_admin.duration.join.2": "%s, %s",
+  "tooltip.acme_admin.duration.join.3": "%s, %s, and %s",
 
   "effect.acme_admin.inhibition": "Inhibition",
   "effect.acme_admin.doom": "Doom",
   "effect.acme_admin.antidote": "Antidote",
-  "effect.acme_admin.marked": "Marked"
+  "effect.acme_admin.marked": "Marked",
+
+  "commands.acme_admin.potion.error.no_vessels": "No potion vessels found",
+
+  "commands.acme_admin.potion.transmute_vessel.success.multiple": "Transmuted held potion vessel to %s for %s players",
+  "commands.acme_admin.potion.transmute_vessel.success.single": "Transmuted held potion vessel to %s for %s",
+
+  "commands.acme_admin.potion.add_effect.success.single": "Added effect %s to %s's held potion vessel",
+  "commands.acme_admin.potion.add_effect.success.multiple": "Added effect %s to %s players' held potion vessels",
+
+  "commands.acme_admin.potion.remove_effect.success.single": "Removed effect %s from %s's held potion vessel",
+  "commands.acme_admin.potion.remove_effect.success.multiple": "Removed effect %s from %s players' held potion vessels",
+
+  "commands.acme_admin.potion.merge_effects.success.single": "Merged effects from %s's held potion vessels",
+  "commands.acme_admin.potion.merge_effects.success.multiple": "Merged effects from %s players' held potion vessels",
+
+  "commands.acme_admin.potion.custom_color.reset.success.single": "Reset custom color of %s's held potion vessel",
+  "commands.acme_admin.potion.custom_color.reset.success.multiple": "Reset custom color of %s players' held potion vessels",
+  "commands.acme_admin.potion.custom_color.set.success.single": "Set custom color of %s's held potion vessel to %s",
+  "commands.acme_admin.potion.custom_color.set.success.multiple": "Set custom color of %s players' held potion vessels to %s",
+
+  "commands.acme_admin.potion.custom_name.success.single": "Set custom name of %s's held potion vessel to %s",
+  "commands.acme_admin.potion.custom_name.success.multiple": "Set custom name of %s players' held potion vessels to %s"
 }

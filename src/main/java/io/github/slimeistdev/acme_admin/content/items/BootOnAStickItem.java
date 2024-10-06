@@ -19,6 +19,7 @@
 package io.github.slimeistdev.acme_admin.content.items;
 
 import io.github.slimeistdev.acme_admin.utils.BanUtils;
+import io.github.slimeistdev.acme_admin.utils.TooltipUtils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
@@ -56,7 +57,7 @@ public class BootOnAStickItem extends AbstractBanHammerItem {
         if (banMinutes == null) for (int i = 0; i <= 2; i++) {
             tooltipComponents.add(Component.translatable("item.acme_admin.boot_on_a_stick.tooltip.kick."+i));
         } else for (int i = 0; i <= 2; i++) {
-            tooltipComponents.add(Component.translatable("item.acme_admin.boot_on_a_stick.tooltip.ban."+i, banMinutes));
+            tooltipComponents.add(Component.translatable("item.acme_admin.boot_on_a_stick.tooltip.ban."+i, TooltipUtils.constructTimeComponent(banMinutes)));
         }
     }
 

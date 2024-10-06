@@ -21,10 +21,12 @@ package io.github.slimeistdev.acme_admin;
 import io.github.slimeistdev.acme_admin.events.CommonEvents;
 import io.github.slimeistdev.acme_admin.networking.ACMEServerNetworking;
 import io.github.slimeistdev.acme_admin.registration.ModSetup;
+import io.github.slimeistdev.acme_admin.utils.Utils;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.spongepowered.asm.mixin.MixinEnvironment;
 
 public class ACMEAdminTools implements ModInitializer {
 	public static final String MOD_ID = "acme_admin";
@@ -45,6 +47,10 @@ public class ACMEAdminTools implements ModInitializer {
 		ModSetup.init();
 		CommonEvents.register();
 		ACMEServerNetworking.register();
+
+		if (Utils.isDevEnv() && !Boolean.getBoolean("DATAGEN")) {
+			MixinEnvironment.getCurrentEnvironment().audit();
+		}
 	}
 
 	public static ResourceLocation asResource(String id) {

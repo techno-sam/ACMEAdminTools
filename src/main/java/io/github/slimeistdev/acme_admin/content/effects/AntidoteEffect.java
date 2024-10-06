@@ -29,8 +29,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Iterator;
 
 public class AntidoteEffect extends ACMEMobEffect {
-    public AntidoteEffect() {
-        super(MobEffectCategory.BENEFICIAL, 0x00ff00);
+    public AntidoteEffect(MobEffectCategory category, int color) {
+        super(category, color);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class AntidoteEffect extends ACMEMobEffect {
 
     @Override
     public boolean isDurationEffectTick(int duration, int amplifier) {
-        return true;
+        return duration >= 1;
     }
 
     @Override

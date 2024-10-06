@@ -3,6 +3,7 @@
   "package": "io.github.slimeistdev.acme_admin.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "common.effect_duration_display_fix.PotionUtilsMixin",
     "common.misc.LivingEntityAccessor",
     "common.misc.MobEffectInstanceAccessor",
     "common.misc.StoredUserListMixin",

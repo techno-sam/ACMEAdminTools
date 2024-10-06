@@ -19,11 +19,11 @@
 package io.github.slimeistdev.acme_admin.registration;
 
 import io.github.slimeistdev.acme_admin.ACMEAdminTools;
+import io.github.slimeistdev.acme_admin.content.effects.ACMEMobEffect;
 import io.github.slimeistdev.acme_admin.content.effects.AntidoteEffect;
 import io.github.slimeistdev.acme_admin.content.effects.DoomEffect;
-import io.github.slimeistdev.acme_admin.content.effects.ACMEMobEffect;
 import io.github.slimeistdev.acme_admin.content.effects.MarkedEffect;
-import net.fabricmc.loader.api.FabricLoader;
+import io.github.slimeistdev.acme_admin.utils.Utils;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.effect.MobEffect;
@@ -43,21 +43,21 @@ public class ACMEMobEffects {
     public static final MobEffect
         INHIBITION = register(
             "inhibition",
-            new ACMEMobEffect(MobEffectCategory.HARMFUL, 0x4c00a6)
+            new ACMEMobEffect(MobEffectCategory.HARMFUL, 0x7D319E)
                 .addAttributeModifier(Attributes.MOVEMENT_SPEED, "b2674fd2-5ed8-4ae7-80cb-4d5f96729942", -1F, AttributeModifier.Operation.MULTIPLY_TOTAL)
                 .addAttributeModifier(Attributes.ATTACK_SPEED, "95540d68-d71e-4018-8564-3d565f0f74fb", -1F, AttributeModifier.Operation.MULTIPLY_TOTAL)
         ),
         DOOM = register(
             "doom",
-            new DoomEffect()
-        ),
-        ANTIDOTE = register(
-            "antidote",
-            new AntidoteEffect()
+            new DoomEffect(MobEffectCategory.HARMFUL, 0x9B1900)
         ),
         MARKED = register(
             "marked",
-            new MarkedEffect()
+            new MarkedEffect(MobEffectCategory.HARMFUL, 0x00F71C)
+        ),
+        ANTIDOTE = register(
+            "antidote",
+                new AntidoteEffect(MobEffectCategory.BENEFICIAL, 0xA9D5F2)
         )
     ;
 
@@ -65,7 +65,7 @@ public class ACMEMobEffects {
 
     private static MobEffect register(String key, MobEffect effect) {
         if (!(effect instanceof ACMEMobEffect)) {
-            if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
+            if (Utils.isDevEnv()) {
                 throw new IllegalArgumentException("MobEffect %s must be an instance of ACMEMobEffect".formatted(effect));
             } else {
                 ACMEAdminTools.LOGGER.warn("MobEffect {} should be an instance of ACMEMobEffect, please report this", effect);

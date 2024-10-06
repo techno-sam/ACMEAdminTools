@@ -18,7 +18,7 @@
 
 package io.github.slimeistdev.acme_admin.utils;
 
-import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
@@ -31,6 +31,10 @@ import java.util.function.Supplier;
 public class AuthUtils {
     public static boolean isAuthorized(Player player) {
         return player.hasPermissions(3);
+    }
+
+    public static boolean isAuthorized(CommandSourceStack commandSourceStack) {
+        return commandSourceStack.hasPermission(3);
     }
 
     public static void appendAuthTooltip(Level level, List<Component> tooltipComponents) {
@@ -51,7 +55,7 @@ public class AuthUtils {
         if (!(entity instanceof Player player)) {
             return true;
         }
-        if (FabricLoader.getInstance().isDevelopmentEnvironment() && player.getItemBySlot(EquipmentSlot.HEAD).is(Items.IRON_BARS)) {
+        if (Utils.isDevEnv() && player.getItemBySlot(EquipmentSlot.HEAD).is(Items.IRON_BARS)) {
             return false;
         }
         return player.hasPermissions(1);

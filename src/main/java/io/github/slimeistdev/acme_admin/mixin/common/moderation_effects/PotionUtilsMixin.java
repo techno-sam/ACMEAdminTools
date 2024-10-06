@@ -18,21 +18,32 @@
 
 package io.github.slimeistdev.acme_admin.mixin.common.moderation_effects;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import io.github.slimeistdev.acme_admin.content.effects.ModeratorOnlyEffect;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
+import java.util.List;
+
 @Mixin(PotionUtils.class)
-public class PotionUtilsMixin {
+public abstract class PotionUtilsMixin {
+
     @WrapOperation(method = "getColor(Ljava/util/Collection;)I", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/effect/MobEffectInstance;isVisible()Z"))
     private static boolean hideModeratorOnlyEffects(MobEffectInstance instance, Operation<Boolean> original) {
         if (instance.getEffect() instanceof ModeratorOnlyEffect) {
             return false;
         }
         return original.call(instance);
+    }
+
+    @ModifyExpressionValue(method = "getColor(Lnet/minecraft/world/item/ItemStack;)I", at = @At(value = "CONSTANT", args = "intValue=16253176"))
+    private static int returnActualColors(int original, ItemStack stack) {
+        List<MobEffectInstance> effects = PotionUtils.getMobEffects(stack);
+        return effects.isEmpty() ? original : PotionUtils.getColor(effects);
     }
 }

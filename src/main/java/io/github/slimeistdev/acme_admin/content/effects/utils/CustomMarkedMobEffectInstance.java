@@ -16,19 +16,12 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package io.github.slimeistdev.acme_admin.content.effects;
+package io.github.slimeistdev.acme_admin.content.effects.utils;
 
-import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.AttributeMap;
+import net.minecraft.world.effect.MobEffectInstance;
 
-public class MarkedEffect extends ACMEMobEffect implements ModeratorOnlyEffect {
-    public MarkedEffect(MobEffectCategory category, int color) {
-        super(category, color);
-    }
-
-    @Override
-    public void removeAttributeModifiers(LivingEntity livingEntity, AttributeMap attributeMap, int amplifier) {
-        super.removeAttributeModifiers(livingEntity, attributeMap, amplifier);
+public class CustomMarkedMobEffectInstance extends MobEffectInstance {
+    public CustomMarkedMobEffectInstance(MobEffectInstance other) {
+        super(other);
     }
 }

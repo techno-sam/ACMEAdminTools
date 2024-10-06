@@ -18,6 +18,8 @@
 
 package io.github.slimeistdev.acme_admin.events;
 
+import io.github.slimeistdev.acme_admin.registration.ACMECommandsServer;
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.player.*;
 import net.minecraft.world.InteractionResult;
 
@@ -30,5 +32,7 @@ public class CommonEvents {
         UseEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> inhibited(player) ? InteractionResult.FAIL : InteractionResult.PASS);
         AttackBlockCallback.EVENT.register((player, world, hand, pos, direction) -> inhibited(player) ? InteractionResult.FAIL : InteractionResult.PASS);
         AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> inhibited(player) ? InteractionResult.FAIL : InteractionResult.PASS);
+
+        CommandRegistrationCallback.EVENT.register(ACMECommandsServer::register);
     }
 }

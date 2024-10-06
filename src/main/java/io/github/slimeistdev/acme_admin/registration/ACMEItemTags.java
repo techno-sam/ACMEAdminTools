@@ -16,19 +16,17 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package io.github.slimeistdev.acme_admin.content.effects;
+package io.github.slimeistdev.acme_admin.registration;
 
-import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.AttributeMap;
+import io.github.slimeistdev.acme_admin.ACMEAdminTools;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 
-public class MarkedEffect extends ACMEMobEffect implements ModeratorOnlyEffect {
-    public MarkedEffect(MobEffectCategory category, int color) {
-        super(category, color);
-    }
+public class ACMEItemTags {
+    public static final TagKey<Item> POTION_VESSELS = create("potion_vessels");
 
-    @Override
-    public void removeAttributeModifiers(LivingEntity livingEntity, AttributeMap attributeMap, int amplifier) {
-        super.removeAttributeModifiers(livingEntity, attributeMap, amplifier);
+    private static TagKey<Item> create(String name) {
+        return TagKey.create(Registries.ITEM, ACMEAdminTools.asResource(name));
     }
 }

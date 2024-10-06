@@ -26,5 +26,6 @@ public class ModSetup {
         ACMEParticleTypes.register();
 
         ACMECreativeTab.register();
+        ACMEArgumentTypes.register();
     }
 }
