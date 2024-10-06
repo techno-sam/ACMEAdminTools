@@ -23,6 +23,7 @@ import io.github.slimeistdev.acme_admin.content.effects.ACMEMobEffect;
 import io.github.slimeistdev.acme_admin.content.effects.AntidoteEffect;
 import io.github.slimeistdev.acme_admin.content.effects.DoomEffect;
 import io.github.slimeistdev.acme_admin.content.effects.MarkedEffect;
+import io.github.slimeistdev.acme_admin.content.effects.utils.StackEffectManipulator;
 import io.github.slimeistdev.acme_admin.utils.Utils;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -33,6 +34,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.Map;
 import java.util.function.Function;
@@ -98,6 +100,13 @@ public class ACMEMobEffects {
             return original.apply(entity);
         } finally { // Yep. This is safe. Really. Java is a confusing language.
             player.getActiveEffectsMap().putAll(moderationEffects);
+        }
+    }
+
+    public static void cleanModerationEffectsFromPotion(ItemStack stack) {
+        StackEffectManipulator manipulator = StackEffectManipulator.mutable(stack, $ -> {});
+        if (manipulator.removeIfEffect(ACMEMobEffects::isModerationEffect)) {
+            manipulator.apply();
         }
     }
 }

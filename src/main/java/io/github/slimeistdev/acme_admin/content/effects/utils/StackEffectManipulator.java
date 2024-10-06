@@ -37,6 +37,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class StackEffectManipulator {
@@ -203,6 +204,28 @@ public class StackEffectManipulator {
         } else {
             return 0;
         }
+    }
+
+    public boolean removeIfInstance(Predicate<MobEffectInstance> predicate) {
+        if (checkMutable()) {
+            if (this.potion != null && this.potion.getEffects().stream().anyMatch(predicate)) {
+                collapsePotion();
+                this.potion = null;
+            }
+            return this.effects.removeIf(predicate);
+        }
+        return false;
+    }
+
+    public boolean removeIfEffect(Predicate<MobEffect> predicate) {
+        if (checkMutable()) {
+            if (this.potion != null && this.potion.getEffects().stream().anyMatch(instance -> predicate.test(instance.getEffect()))) {
+                collapsePotion();
+                this.potion = null;
+            }
+            return this.effects.removeIf(instance -> predicate.test(instance.getEffect()));
+        }
+        return false;
     }
 
     public void setCustomColor(int color) {

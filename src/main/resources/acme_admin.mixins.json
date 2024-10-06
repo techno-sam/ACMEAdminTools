@@ -7,6 +7,7 @@
     "common.misc.LivingEntityAccessor",
     "common.misc.MobEffectInstanceAccessor",
     "common.misc.StoredUserListMixin",
+    "common.moderation_effects.InventoryMixin",
     "common.moderation_effects.LivingEntityMixin",
     "common.moderation_effects.MilkBucketItemMixin",
     "common.moderation_effects.PlayerMixin",
