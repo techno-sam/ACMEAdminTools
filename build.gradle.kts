@@ -200,3 +200,7 @@ publishMods {
         minecraftVersions.add("minecraft_version"())
     }
 }
+
+tasks.create("ACMEPublish") {
+    dependsOn(":build", ":publishMods")
+}
