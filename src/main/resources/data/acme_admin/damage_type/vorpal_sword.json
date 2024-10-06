@@ -1,0 +1,6 @@
+{
+  "exhaustion": 20.0,
+  "message_id": "acme_admin.vorpal_sword",
+  "scaling": "never",
+  "effects": "freezing"
+}

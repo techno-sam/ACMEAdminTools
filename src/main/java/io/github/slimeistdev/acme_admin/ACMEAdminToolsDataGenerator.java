@@ -63,7 +63,8 @@ public class ACMEAdminToolsDataGenerator implements DataGeneratorEntrypoint {
 			for (String bypass : bypasses) {
 				getOrCreateTagBuilder(TagKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("bypasses_"+bypass)))
 					.addOptional(ACMEDamageTypes.KISS_OF_DEATH.key())
-					.addOptional(ACMEDamageTypes.DOOM.key());
+					.addOptional(ACMEDamageTypes.DOOM.key())
+					.addOptional(ACMEDamageTypes.VORPAL_SWORD.key());
 			}
 
 			getOrCreateTagBuilder(ACMEDamageTypeTags.BYPASSES_TOTEMS)

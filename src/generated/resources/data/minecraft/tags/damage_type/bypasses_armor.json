@@ -8,6 +8,10 @@
     {
       "id": "acme_admin:doom",
       "required": false
+    },
+    {
+      "id": "acme_admin:vorpal_sword",
+      "required": false
     }
   ]
 }

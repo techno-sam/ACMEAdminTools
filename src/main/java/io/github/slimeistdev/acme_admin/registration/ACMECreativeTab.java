@@ -54,6 +54,7 @@ public class ACMECreativeTab {
         public void accept(CreativeModeTab.ItemDisplayParameters params, CreativeModeTab.Output output) {
             output.accept(ACMEItems.BAN_HAMMER.getDefaultInstance());
             output.accept(ACMEItems.BOOT_ON_A_STICK.getDefaultInstance());
+            output.accept(ACMEItems.VORPAL_SWORD.getDefaultInstance());
             output.accept(ACMEItems.ALCHEMICAL_LASER.getDefaultInstance());
 
             output.accept(laser(ACMEMobEffects.ANTIDOTE, 1, 0, "antidote"));

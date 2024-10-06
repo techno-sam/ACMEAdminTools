@@ -21,30 +21,27 @@ package io.github.slimeistdev.acme_admin.content.items;
 import io.github.slimeistdev.acme_admin.registration.ACMEDamageTypes;
 import io.github.slimeistdev.acme_admin.utils.AuthUtils;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public abstract class AbstractBanHammerItem extends Item {
-    public AbstractBanHammerItem(Properties properties) {
-        super(properties);
+public class VorpalSwordItem extends SwordItem {
+    public VorpalSwordItem(Properties properties) {
+        super(Tiers.NETHERITE, -4, -2.4F, properties);
     }
 
     @Override
-    public final boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        if (attacker instanceof Player player && AuthUtils.isAuthorized(player) && target instanceof ServerPlayer serverTarget) {
-            if (AuthUtils.isImmuneToModerationEffects(serverTarget))
-                return false;
-
+    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+        if (attacker instanceof Player player && AuthUtils.isAuthorized(player)) {
             Level level = target.level();
 
             // Summon visual lightning
@@ -55,30 +52,22 @@ public abstract class AbstractBanHammerItem extends Item {
                 level.addFreshEntity(lightningBolt);
             }
 
-            if (player.isShiftKeyDown()) {
-                float amount = target.getHealth() - 1f;
-                if (amount > 0.2f)
-                    target.hurt(ACMEDamageTypes.KISS_OF_DEATH.create(level, player), amount);
-            } else {
-                target.hurt(ACMEDamageTypes.KISS_OF_DEATH.create(level, player), Float.MAX_VALUE);
-            }
-
-            applyModerationAction(stack, serverTarget, player);
+            target.hurt(ACMEDamageTypes.VORPAL_SWORD.create(level, attacker), Float.MAX_VALUE);
 
             return true;
         }
+
         return super.hurtEnemy(stack, target, attacker);
     }
 
-    protected abstract void applyModerationAction(ItemStack stack, ServerPlayer target, Player attacker);
-
-    protected abstract void appendCustomHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced);
-
     @Override
-    public final void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced) {
+    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced) {
         super.appendHoverText(stack, level, tooltipComponents, isAdvanced);
 
-        appendCustomHoverText(stack, level, tooltipComponents, isAdvanced);
+        for (int i = 0; i <= 1; i++) {
+            tooltipComponents.add(Component.translatable("item.acme_admin.vorpal_sword.tooltip."+i));
+        }
+
         if (level != null)
             AuthUtils.appendAuthTooltip(level, tooltipComponents);
     }

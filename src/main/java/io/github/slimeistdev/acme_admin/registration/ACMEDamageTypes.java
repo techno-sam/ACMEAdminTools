@@ -29,7 +29,8 @@ import net.minecraft.world.level.Level;
 public class ACMEDamageTypes {
     public static final ACMEDamageType
         KISS_OF_DEATH = acme("kiss_of_death"),
-        DOOM = acme("doom")
+        DOOM = acme("doom"),
+        VORPAL_SWORD = acme("vorpal_sword")
     ;
 
     public static void register() {}

@@ -1,7 +1,7 @@
-// 1.20.1	2024-10-05T21:33:32.814236003	ACME Admin Tools/Tags for minecraft:damage_type
-66bdee5c30a9a96ac9119f7775e47ef6d5afec21 data/minecraft/tags/damage_type/bypasses_resistance.json
-66bdee5c30a9a96ac9119f7775e47ef6d5afec21 data/minecraft/tags/damage_type/bypasses_effects.json
-66bdee5c30a9a96ac9119f7775e47ef6d5afec21 data/minecraft/tags/damage_type/bypasses_armor.json
+// 1.20.1	2024-10-05T22:37:47.234877031	ACME Admin Tools/Tags for minecraft:damage_type
+d7c70c33dae98dfe56adbf461209f90ac6370fdb data/minecraft/tags/damage_type/bypasses_resistance.json
+d7c70c33dae98dfe56adbf461209f90ac6370fdb data/minecraft/tags/damage_type/bypasses_effects.json
+d7c70c33dae98dfe56adbf461209f90ac6370fdb data/minecraft/tags/damage_type/bypasses_armor.json
 66bdee5c30a9a96ac9119f7775e47ef6d5afec21 data/acme_admin/tags/damage_type/bypasses_totems.json
-66bdee5c30a9a96ac9119f7775e47ef6d5afec21 data/minecraft/tags/damage_type/bypasses_cooldown.json
-66bdee5c30a9a96ac9119f7775e47ef6d5afec21 data/minecraft/tags/damage_type/bypasses_enchantments.json
+d7c70c33dae98dfe56adbf461209f90ac6370fdb data/minecraft/tags/damage_type/bypasses_enchantments.json
+d7c70c33dae98dfe56adbf461209f90ac6370fdb data/minecraft/tags/damage_type/bypasses_cooldown.json
