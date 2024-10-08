@@ -9,7 +9,9 @@
 		"Vivian Ametrix"
 	],
 	"contact": {
-		"sources": "https://github.com/techno-sam/ACMEAdminTools"
+		"sources": "https://github.com/techno-sam/ACMEAdminTools",
+		"issues": "https://github.com/techno-sam/ACMEAdminTools/issues",
+		"homepage": "https://modrinth.com/mod/acme-admin-tools"
 	},
 	"license": "LGPL v3.0",
 	"icon": "assets/acme_admin/icon.png",
