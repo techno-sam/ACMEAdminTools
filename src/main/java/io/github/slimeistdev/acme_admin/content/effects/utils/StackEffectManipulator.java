@@ -21,6 +21,7 @@ package io.github.slimeistdev.acme_admin.content.effects.utils;
 import com.mojang.datafixers.util.Pair;
 import io.github.slimeistdev.acme_admin.ACMEAdminTools;
 import io.github.slimeistdev.acme_admin.registration.ACMEItemTags;
+import io.github.slimeistdev.acme_admin.registration.ACMEMobEffects;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
@@ -77,6 +78,9 @@ public class StackEffectManipulator {
         this.mutable = mutable;
         this.applicator = applicator;
         this.potion = PotionUtils.getPotion(stack);
+        if (this.potion == ACMEMobEffects.MIXED) {
+            this.potion = null;
+        }
         this.effects.addAll(PotionUtils.getCustomEffects(stack));
 
         //noinspection DataFlowIssue
@@ -284,9 +288,11 @@ public class StackEffectManipulator {
                 this.potion = null;
             }
 
-            if (this.potion != null) {
-                PotionUtils.setPotion(this.stack, this.potion);
+            if (this.potion == null) {
+                this.potion = ACMEMobEffects.MIXED;
             }
+
+            PotionUtils.setPotion(this.stack, this.potion);
             PotionUtils.setCustomEffects(this.stack, this.effects);
             if (this.customColor != null) {
                 this.stack.getOrCreateTag().putInt("CustomPotionColor", this.customColor);

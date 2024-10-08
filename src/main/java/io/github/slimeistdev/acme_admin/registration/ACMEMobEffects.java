@@ -35,6 +35,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.alchemy.Potion;
 
 import java.util.Map;
 import java.util.function.Function;
@@ -63,6 +64,11 @@ public class ACMEMobEffects {
         )
     ;
 
+    public static final Potion MIXED = register(
+        "mixed",
+        new Potion("acme_admin.mixed")
+    );
+
     public static void register() {}
 
     private static MobEffect register(String key, MobEffect effect) {
@@ -74,6 +80,10 @@ public class ACMEMobEffects {
             }
         }
         return Registry.register(BuiltInRegistries.MOB_EFFECT, ACMEAdminTools.asResource(key), effect);
+    }
+
+    private static Potion register(String key, Potion potion) {
+        return Registry.register(BuiltInRegistries.POTION, ACMEAdminTools.asResource(key), potion);
     }
 
     public static boolean isModerationEffect(MobEffect effect) {
