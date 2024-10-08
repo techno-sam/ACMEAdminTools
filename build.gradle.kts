@@ -24,7 +24,7 @@ group = "maven_group"()
 // Formats the mod version to include the Mincraft version and build number (if present)
 val build = buildNumber?.let { "-build.${it}" } ?: "-local"
 
-version = "${"mod_version"()}+${project.name}-mc${"minecraft_version"() + if (isRelease) "" else build}"
+version = "${"mod_version"()}+fabric-mc${"minecraft_version"() + if (isRelease) "" else build}"
 
 java {
     withSourcesJar()
