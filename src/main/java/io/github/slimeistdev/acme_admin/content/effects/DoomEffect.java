@@ -18,6 +18,7 @@
 
 package io.github.slimeistdev.acme_admin.content.effects;
 
+import io.github.slimeistdev.acme_admin.impl.v0.causes.DoomBanCause;
 import io.github.slimeistdev.acme_admin.registration.ACMEDamageTypes;
 import io.github.slimeistdev.acme_admin.utils.AuthUtils;
 import io.github.slimeistdev.acme_admin.utils.BanUtils;
@@ -57,7 +58,7 @@ public class DoomEffect extends ACMEMobEffect {
         livingEntity.hurt(ACMEDamageTypes.DOOM.create(level), Float.MAX_VALUE);
 
         if (amplifier >= 1 && livingEntity instanceof ServerPlayer target) {
-            BanUtils.banPlayer(target, "$$acme_admin:doom$$", "Doomed by your sins", null);
+            BanUtils.banPlayer(target, "$$acme_admin:doom$$", new DoomBanCause("Doomed by your sins"));
         }
     }
 }

@@ -18,6 +18,8 @@
 
 package io.github.slimeistdev.acme_admin.content.items;
 
+import io.github.slimeistdev.acme_admin.impl.v0.causes.BootOnAStickBanCause;
+import io.github.slimeistdev.acme_admin.impl.v0.causes.BootOnAStickKickCause;
 import io.github.slimeistdev.acme_admin.utils.BanUtils;
 import io.github.slimeistdev.acme_admin.utils.TooltipUtils;
 import net.minecraft.nbt.CompoundTag;
@@ -43,10 +45,14 @@ public class BootOnAStickItem extends AbstractBanHammerItem {
         Integer banMinutes = getBanMinutes(stack);
 
         if (banMinutes == null) {
-            BanUtils.kickPlayer(target, "Kicked by Boot on a Stick");
+            BanUtils.kickPlayer(target, new BootOnAStickKickCause(attacker, "Kicked by Boot on a Stick", stack));
         } else {
             Date expireDate = new Date(System.currentTimeMillis() + banMinutes * 60000);
-            BanUtils.banPlayer(target, attacker.getGameProfile().getName()+"["+ attacker.getStringUUID()+"]", "Found the sole of a Boot on a Stick", expireDate);
+            BanUtils.banPlayer(
+                target,
+                attacker.getGameProfile().getName()+"["+ attacker.getStringUUID()+"]",
+                new BootOnAStickBanCause(attacker, expireDate, "Found the sole of a Boot on a Stick", stack)
+            );
         }
     }
 

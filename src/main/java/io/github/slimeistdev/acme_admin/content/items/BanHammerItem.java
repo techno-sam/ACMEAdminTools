@@ -18,6 +18,7 @@
 
 package io.github.slimeistdev.acme_admin.content.items;
 
+import io.github.slimeistdev.acme_admin.impl.v0.causes.BanHammerBanCause;
 import io.github.slimeistdev.acme_admin.utils.BanUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -36,7 +37,11 @@ public class BanHammerItem extends AbstractBanHammerItem {
 
     @Override
     protected void applyModerationAction(ItemStack stack, ServerPlayer target, Player attacker) {
-        BanUtils.banPlayer(target, attacker.getGameProfile().getName()+"["+ attacker.getStringUUID()+"]", "Crushed by a Ban Hammer", null);
+        BanUtils.banPlayer(
+            target,
+            attacker.getGameProfile().getName()+"["+ attacker.getStringUUID()+"]",
+            new BanHammerBanCause(attacker, "Crushed by a Ban Hammer", stack)
+        );
     }
 
     @Override

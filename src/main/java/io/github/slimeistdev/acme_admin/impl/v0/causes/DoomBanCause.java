@@ -1,0 +1,51 @@
+/*
+ * ACME Admin Tools
+ * Copyright (c) 2024 Sam Wagenaar and VivvyInks
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+package io.github.slimeistdev.acme_admin.impl.v0.causes;
+
+import io.github.slimeistdev.acme_admin.api.v0.causes.IBanCause;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Date;
+
+public record DoomBanCause(
+    @Nullable String reason
+) implements IBanCause {
+
+    @Override
+    public @Nullable Date getExpiration() {
+        return null;
+    }
+
+    @Override
+    public @Nullable Player getResponsiblePlayer() {
+        return null;
+    }
+
+    @Override
+    public @Nullable String getReason() {
+        return reason();
+    }
+
+    @Override
+    public @Nullable ItemStack getWeapon() {
+        return null;
+    }
+}

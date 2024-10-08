@@ -20,6 +20,11 @@ package io.github.slimeistdev.acme_admin.utils;
 
 import com.mojang.authlib.GameProfile;
 import io.github.slimeistdev.acme_admin.ACMEAdminTools;
+import io.github.slimeistdev.acme_admin.api.v0.causes.IBanCause;
+import io.github.slimeistdev.acme_admin.api.v0.causes.IKickCause;
+import io.github.slimeistdev.acme_admin.api.v0.events.ACMEBanCallback;
+import io.github.slimeistdev.acme_admin.api.v0.events.ACMEKickCallback;
+import io.github.slimeistdev.acme_admin.impl.v0.CancellableImpl;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.MinecraftServer;
@@ -37,19 +42,28 @@ import java.util.Date;
 public class BanUtils {
     private static final SimpleDateFormat BAN_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
 
-    public static void banPlayer(@NotNull ServerPlayer player, @Nullable String source, @Nullable String reason, @Nullable Date expires) {
+    public static void banPlayer(@NotNull ServerPlayer player, @Nullable String source, @NotNull IBanCause cause) {
+        CancellableImpl cancellation = new CancellableImpl();
+        ACMEBanCallback.EVENT.invoker().onBan(player, source, cause, cancellation);
+        if (cancellation.isCancelled()) {
+            return;
+        }
+
+        Date expiration = cause.getExpiration();
+        String reason = cause.getReason();
+
         MinecraftServer server = player.getServer();
         UserBanList banList = server.getPlayerList().getBans();
 
         GameProfile profile = player.getGameProfile();
-        UserBanListEntry entry = new UserBanListEntry(profile, new Date(), source, expires, reason);
+        UserBanListEntry entry = new UserBanListEntry(profile, new Date(), source, expiration, reason);
         banList.add(entry);
 
         MutableComponent message = reason == null
             ? Component.translatable("multiplayer.disconnect.banned")
             : Component.translatable("multiplayer.disconnect.banned.reason", reason);
-        if (expires != null) {
-            message.append(Component.translatable("multiplayer.disconnect.banned.expiration", BAN_DATE_FORMAT.format(expires)));
+        if (expiration != null) {
+            message.append(Component.translatable("multiplayer.disconnect.banned.expiration", BAN_DATE_FORMAT.format(expiration)));
         }
 
         disconnect(player, message);
@@ -57,7 +71,15 @@ public class BanUtils {
         ACMEAdminTools.LOGGER.info("Banned player {} with message:\n{}", profile.getName(), message.getString());
     }
 
-    public static void kickPlayer(@NotNull ServerPlayer player, @Nullable String reason) {
+    public static void kickPlayer(@NotNull ServerPlayer player, @NotNull IKickCause cause) {
+        CancellableImpl cancellation = new CancellableImpl();
+        ACMEKickCallback.EVENT.invoker().onKick(player, cause, cancellation);
+        if (cancellation.isCancelled()) {
+            return;
+        }
+
+        String reason = cause.getReason();
+
         MutableComponent message = reason == null
             ? Component.translatable("multiplayer.disconnect.kicked")
             : Component.literal(reason);
