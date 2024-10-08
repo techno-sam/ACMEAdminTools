@@ -44,6 +44,11 @@ repositories {
     maven("https://maven.terraformersmc.com/releases/") // Mod Menu, EMI
     maven("https://jitpack.io/") // Mixin Extras, Fabric ASM
     exclusiveMaven("https://api.modrinth.com/maven", "maven.modrinth") // LazyDFU
+    maven("https://mvn.devos.one/snapshots/") // Create Fabric, Porting Lib, Forge Tags, Milk Lib, Registrate Fabric
+    maven("https://mvn.devos.one/releases") // Porting Lib Releases
+    maven("https://maven.jamieswhiteshirt.com/libs-release") // Reach Entity Attributes
+    exclusiveMaven("https://maven.tterrag.com/", "com.jozufozu.flywheel") // Flywheel
+    maven("https://raw.githubusercontent.com/Fuzss/modresources/main/maven/") // Forge config api port
 }
 
 val loom = project.extensions.getByType<LoomGradleExtensionAPI>()
@@ -97,6 +102,13 @@ dependencies {
 
     modImplementation("net.fabricmc:fabric-loader:${"fabric_loader_version"()}")
     modImplementation("net.fabricmc.fabric-api:fabric-api:${"fabric_api_version"()}")
+
+    // Create - dependencies are added transitively
+    modCompileOnly("com.simibubi.create:create-fabric-${"minecraft_version"()}:${"create_fabric_version"()}")
+
+    if ("enable_create"().toBoolean()) {
+        modLocalRuntime("com.simibubi.create:create-fabric-${"minecraft_version"()}:${"create_fabric_version"()}")
+    }
 
     // Development QOL
     modLocalRuntime("maven.modrinth:lazydfu:${"lazydfu_version"()}")

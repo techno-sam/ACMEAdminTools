@@ -40,6 +40,11 @@
   "item.acme_admin.alchemical_laser.preset.doom": "Alchemical Laser of Doom",
   "item.acme_admin.alchemical_laser.preset.doom_ii": "Alchemical Laser of Eternal Doom",
 
+  "item.minecraft.potion.effect.acme_admin.mixed": "Mixed Potion",
+  "item.minecraft.lingering_potion.effect.acme_admin.mixed": "Mixed Lingering Potion",
+  "item.minecraft.splash_potion.effect.acme_admin.mixed": "Mixed Splash Potion",
+  "item.minecraft.tipped_arrow.effect.acme_admin.mixed": "Mixed Tipped Arrow",
+
   "tooltip.acme_admin.duration.minutes": "%s minutes",
   "tooltip.acme_admin.duration.minutes.1": "1 minute",
   "tooltip.acme_admin.duration.hours": "%s hours",

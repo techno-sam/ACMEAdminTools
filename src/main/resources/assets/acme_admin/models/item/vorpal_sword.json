@@ -1,0 +1,29 @@
+{
+  "credit": "By Slimeist",
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "acme_admin:item/vorpal_sword"
+  },
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [0, -90, 55],
+      "translation": [0, 7, 1.25],
+      "scale": [1.25, 1.25, 1.25]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [0, 90, -55],
+      "translation": [0, 7, 1.25],
+      "scale": [1.25, 1.25, 1.25]
+    },
+    "firstperson_righthand": {
+      "rotation": [0, -90, 25],
+      "translation": [1.13, 4.2, -0.12],
+      "scale": [0.86, 0.86, 0.86]
+    },
+    "firstperson_lefthand": {
+      "rotation": [0, 90, -25],
+      "translation": [1.13, 4.2, -0.12],
+      "scale": [0.86, 0.86, 0.86]
+    }
+  }
+}
