@@ -207,10 +207,9 @@ publishMods {
     file = tasks.remapJar.get().archiveFile
     version.set(project.version.toString())
     changelog = ChangelogText.getChangelogText(rootProject).toString()
-    type = STABLE
+    type = BETA
     displayName = "ACME Admin Tools v${"mod_version"()} Fabric ${"minecraft_version"()}"
     modLoaders.add("fabric")
-    modLoaders.add("quilt")
 
     modrinth {
         projectId = "modrinth_id"()
