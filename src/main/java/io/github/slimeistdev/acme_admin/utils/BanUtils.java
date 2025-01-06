@@ -24,6 +24,8 @@ import io.github.slimeistdev.acme_admin.api.v0.causes.IBanCause;
 import io.github.slimeistdev.acme_admin.api.v0.causes.IKickCause;
 import io.github.slimeistdev.acme_admin.api.v0.events.ACMEBanCallback;
 import io.github.slimeistdev.acme_admin.api.v0.events.ACMEKickCallback;
+import io.github.slimeistdev.acme_admin.compat.Mods;
+import io.github.slimeistdev.acme_admin.compat.banhammer.BanHammerBanUtils;
 import io.github.slimeistdev.acme_admin.impl.v0.CancellableImpl;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -53,11 +55,13 @@ public class BanUtils {
         String reason = cause.getReason();
 
         MinecraftServer server = player.getServer();
-        UserBanList banList = server.getPlayerList().getBans();
-
         GameProfile profile = player.getGameProfile();
-        UserBanListEntry entry = new UserBanListEntry(profile, new Date(), source, expiration, reason);
-        banList.add(entry);
+
+        Mods.BANHAMMER.executeIfInstalled(() -> () -> BanHammerBanUtils.ban(player, source, reason, expiration), () -> () -> {
+            UserBanList banList = server.getPlayerList().getBans();
+            UserBanListEntry entry = new UserBanListEntry(profile, new Date(), source, expiration, reason);
+            banList.add(entry);
+        });
 
         MutableComponent message = reason == null
             ? Component.translatable("multiplayer.disconnect.banned")
@@ -79,6 +83,8 @@ public class BanUtils {
         }
 
         String reason = cause.getReason();
+
+        Mods.BANHAMMER.executeIfInstalled(() -> () -> BanHammerBanUtils.kick(player, null, reason));
 
         MutableComponent message = reason == null
             ? Component.translatable("multiplayer.disconnect.kicked")

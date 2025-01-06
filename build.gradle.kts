@@ -110,6 +110,12 @@ dependencies {
         modLocalRuntime("com.simibubi.create:create-fabric-${"minecraft_version"()}:${"create_fabric_version"()}")
     }
 
+    // BanHammer compat
+    modCompileOnly("maven.modrinth:banhammer:${"banhammer_version"()}")
+    if ("enable_banhammer"().toBoolean()) {
+        modLocalRuntime("maven.modrinth:banhammer:${"banhammer_version"()}")
+    }
+
     // Development QOL
     modLocalRuntime("maven.modrinth:lazydfu:${"lazydfu_version"()}")
     modLocalRuntime("com.terraformersmc:modmenu:${"modmenu_version"()}")
